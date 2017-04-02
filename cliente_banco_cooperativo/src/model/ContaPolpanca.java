@@ -4,18 +4,19 @@ import java.util.ArrayList;
 
 public class ContaPolpanca extends Conta {
 
-	private String numero;
+	private int numero;
 	private String senha;
 	private int saldo;
 	private ArrayList<Usuario> titulares;
 	
-	public ContaPolpanca(String numero, String Senha, ArrayList<Usuario> titulares) {
-		super(numero, Senha, titulares);
-	
+	public ContaPolpanca(int numero, String Senha) {
+		this.numero = numero;
+		this.senha = senha;
+		this.titulares = new ArrayList<Usuario>();
 	}
 
 	@Override
-	public String getNumero(){
+	public int getNumero(){
 		return this.numero;
 	}
 	@Override

@@ -4,18 +4,19 @@ import java.util.ArrayList;
 
 public class ContaCorrente extends Conta{
 
-	private String numero;
+	private int numero;
 	private String senha;
 	private int saldo;
 	private ArrayList<Usuario> titulares;
 	
-	public ContaCorrente(String numero, String senha, ArrayList<Usuario> titulares) {
-		super(numero, senha, titulares);
-		// TODO Auto-generated constructor stub
+	public ContaCorrente(int numero, String senha) {
+		this.numero = numero;
+		this.senha = senha;
+		this.titulares = new ArrayList<Usuario>();
 	}
 
 	@Override
-	public String getNumero(){
+	public int getNumero(){
 		return this.numero;
 	}
 	@Override

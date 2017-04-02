@@ -22,31 +22,39 @@ public class Facade {
 	
 	// ************************* METODOS DO ControllerConta ****************************//
 	
-	public void CriarContaCorrente(String numero, String senha, ArrayList<Usuario> titulares) {
-		this.controllerConta.CriarContaCorrente(numero, senha, titulares);
+	public int criarContaCorrente(String senha) {
+		return this.controllerConta.criarContaCorrente(senha);
 	}
 
-	public void CriarContaPolpanca(String numero, String senha, ArrayList<Usuario> titulares) {
-		this.controllerConta.CriarContaPolpanca(numero, senha, titulares);
+	public int criarContaPolpanca(String senha) {
+		return this.controllerConta.criarContaPolpanca(senha);
 	}
 
-	public void addTitular(Usuario usuario, String numeroConta) throws UsuarioNaoEncontradoExcep {
+	public void addTitular(Usuario usuario, int numeroConta) throws UsuarioNaoEncontradoExcep {
 		this.controllerConta.addTitular(usuario, numeroConta);
 	}
 
-	public Conta buscarConta(String numeroConta) throws ContaNaoEncontradaExcep {
+	public Conta buscarConta(int numeroConta) throws ContaNaoEncontradaExcep {
 		return this.controllerConta.buscarConta(numeroConta);
 	}
 
-	public void depositar(String numeroConta, int valor) throws ContaNaoEncontradaExcep {
+	public void depositar(int numeroConta, int valor) throws ContaNaoEncontradaExcep {
 		this.controllerConta.depositar(numeroConta, valor);
 	}
 
-	public void tranferir(String numeroConta, String numeroContaDestino, int valor) 
+	public void tranferir(int numeroConta, int numeroContaDestino, int valor)
 			throws ContaNaoEncontradaExcep, SaldoInsuficienteExcep{
 		
 		this.controllerConta.tranferir(numeroConta, numeroContaDestino, valor);
 	}
+
+	public int logarConta(int numeroConta, String senha) throws ContaNaoEncontradaExcep {
+		return this.controllerConta.logarConta(numeroConta, senha);
+	}
+	public int consultarSaldo(int numero) throws ContaNaoEncontradaExcep {
+		return this.controllerConta.consultarSaldo(numero);
+	}
+
 	
 	//********************************* METODOS DO CONTROLLER USUARIO ******************************//
 	public void criarUsuario(String primeiroNome, String sobreNome, String cpf, int tipo){
@@ -55,5 +63,19 @@ public class Facade {
 	
 	public Usuario buscarUsuario(String cpf) throws UsuarioNaoEncontradoExcep{			
 		return this.controllerUsuario.buscarUsuario(cpf);
+	}
+
+	public ControllerConta getControllerConta() {
+		return controllerConta;
+	}
+
+	public ControllerUsuario getControllerUsuario() {
+		return controllerUsuario;
+	}
+	public void listarContas(){
+		this.controllerConta.listarContas();
+	}
+	public void listarUsuarios(){
+		this.controllerUsuario.listarUsuarios();
 	}
 }

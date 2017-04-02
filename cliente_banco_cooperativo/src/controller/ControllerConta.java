@@ -9,40 +9,60 @@ import model.*;
 
 public class ControllerConta {
 
+
+
 	private ArrayList<Conta> listaContas;
+	private int numeroConta;
+	private Conta contaLogada;
 
-	public void CriarContaCorrente(String numero, String senha, ArrayList<Usuario> titulares) {
-		Conta conta = new ContaCorrente(numero, senha, titulares);
+	public ControllerConta(){
+		this.listaContas = new ArrayList<Conta>();
+		this.numeroConta = 100;
+	}
+	//verificar se a conta já existe;
+	public int criarContaCorrente(String senha) {
+
+		int numero = numeroConta;
+		Conta conta = new ContaCorrente(numero, senha);
 		listaContas.add(conta);
+		numeroConta++;
+		return numero;
 	}
 
-	public void CriarContaPolpanca(String numero, String senha, ArrayList<Usuario> titulares) {
-		Conta conta = new ContaPolpanca(numero, senha, titulares);
+	public int criarContaPolpanca(String senha) {
+		int numero = numeroConta;
+		Conta conta = new ContaCorrente(numero, senha);
 		listaContas.add(conta);
+		numeroConta++;
+		return numero;
 	}
 
-	public void addTitular(Usuario usuario, String numeroConta) throws UsuarioNaoEncontradoExcep {
+	public void addTitular(Usuario usuario, int numeroConta) throws UsuarioNaoEncontradoExcep {
 
 		for (Conta conta : listaContas) {
-			if (conta.getNumero().equals("numeroConta"))
+			if (conta.getNumero() == numeroConta)
 				conta.addTitular(usuario);
 		}
 	}
 
-	public Conta buscarConta(String numeroConta) throws ContaNaoEncontradaExcep {
-		for (Conta conta : listaContas) {
-			if (conta.getNumero().equals("numeroConta"))
-				return conta;
+	public Conta buscarConta(int numeroConta) throws ContaNaoEncontradaExcep {
+
+		for (int i=0; i<listaContas.size(); i++) {
+			if(listaContas.get(i).getNumero() == numeroConta ){
+				return listaContas.get(i);
+			}
 		}
+
+
 		throw new ContaNaoEncontradaExcep("Conta não encontrada");
 	}
 
-	public void depositar(String numeroConta, int valor) throws ContaNaoEncontradaExcep {
+	public void depositar(int numeroConta, int valor) throws ContaNaoEncontradaExcep {
 		Conta conta = this.buscarConta(numeroConta);
 		conta.depositar(valor);
 	}
 
-	public void tranferir(String numeroConta, String numeroContaDestino, int valor) 
+	public void tranferir(int numeroConta, int numeroContaDestino, int valor)
 			throws ContaNaoEncontradaExcep, SaldoInsuficienteExcep{
 		
 		Conta conta = this.buscarConta(numeroConta);
@@ -55,5 +75,38 @@ public class ControllerConta {
 			contaDestino.depositar(valor);
 		}
 	}
+	public int logarConta(int numero, String senha) throws ContaNaoEncontradaExcep {
+		Conta conta = this.buscarConta(numero);
+		String aux = conta.getSenha();
 
+		if (aux.equals(senha)){
+			this.setContaLogada(conta);
+			return 1;
+		}
+		else
+			return 0;
+	}
+
+	public int consultarSaldo(int numeroConta) throws ContaNaoEncontradaExcep {
+		Conta conta = this.buscarConta(numeroConta);
+		return conta.getSaldo();
+	}
+
+	public void listarContas(){
+		for(Conta conta: listaContas){
+			System.out.println("Numero: "+conta.getNumero()+ " "+ "Senha: "+conta.getSenha());
+		}
+	}
+
+	public Conta getContaLogada() {
+		return contaLogada;
+	}
+
+	public void setContaLogada(Conta contaLogada) {
+		this.contaLogada = contaLogada;
+	}
+
+	public ArrayList<Conta> getListaContas() {
+		return listaContas;
+	}
 }

@@ -8,6 +8,10 @@ import model.Usuario;
 public class ControllerUsuario {
 
 	private ArrayList<Usuario> listaUsuarios;
+
+	public ControllerUsuario(){
+		this.listaUsuarios = new ArrayList<Usuario>();
+	}
 	
 	
 	public void criarUsuario(String primeiroNome, String sobreNome, String cpf, int tipo){
@@ -21,5 +25,15 @@ public class ControllerUsuario {
 				return usuario;
 		}
 		throw new UsuarioNaoEncontradoExcep("Usuario Não encontrado");
+	}
+
+	public void listarUsuarios(){
+		for (Usuario usuario: listaUsuarios){
+			System.out.println("Nome: "+usuario.getPrimeiroNome() +" "+"Cpf: "+usuario.getCpf());
+		}
+	}
+
+	public ArrayList<Usuario> getListaUsuarios() {
+		return listaUsuarios;
 	}
 }

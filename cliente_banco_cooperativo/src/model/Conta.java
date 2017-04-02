@@ -4,18 +4,12 @@ import java.util.ArrayList;
 
 public abstract class Conta {
 
-	private String numero;
-	private String senha;
-	private int saldo;
-	private ArrayList<Usuario> titulares;
+
 	
-	public Conta(String numero, String Senha, ArrayList<Usuario> titulares){
-		this.numero = numero;
-		this.senha = senha;
-		this.titulares = titulares;
+	public Conta(){
 	}
 	
-	public abstract String getNumero();
+	public abstract int getNumero();
 	
 	public abstract String getSenha();
 	
@@ -28,7 +22,6 @@ public abstract class Conta {
 	public abstract void debitar(int valor);
 	
 	public abstract int getSaldo();
-	
-	
+
 	
 }
