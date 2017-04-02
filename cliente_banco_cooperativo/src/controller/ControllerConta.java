@@ -25,6 +25,7 @@ public class ControllerConta {
 		int numero = numeroConta;
 		Conta conta = new ContaCorrente(numero, senha);
 		listaContas.add(conta);
+		this.setContaLogada(conta);
 		numeroConta++;
 		return numero;
 	}
@@ -33,16 +34,14 @@ public class ControllerConta {
 		int numero = numeroConta;
 		Conta conta = new ContaCorrente(numero, senha);
 		listaContas.add(conta);
+		this.setContaLogada(conta);
 		numeroConta++;
 		return numero;
 	}
 
-	public void addTitular(Usuario usuario, int numeroConta) throws UsuarioNaoEncontradoExcep {
+	public void addTitular(Usuario usuario, Conta contaLogada) throws UsuarioNaoEncontradoExcep {
+		contaLogada.addTitular(usuario);
 
-		for (Conta conta : listaContas) {
-			if (conta.getNumero() == numeroConta)
-				conta.addTitular(usuario);
-		}
 	}
 
 	public Conta buscarConta(int numeroConta) throws ContaNaoEncontradaExcep {
@@ -57,21 +56,19 @@ public class ControllerConta {
 		throw new ContaNaoEncontradaExcep("Conta não encontrada");
 	}
 
-	public void depositar(int numeroConta, int valor) throws ContaNaoEncontradaExcep {
-		Conta conta = this.buscarConta(numeroConta);
+	public void depositar(Conta conta, int valor) throws ContaNaoEncontradaExcep {
 		conta.depositar(valor);
 	}
 
-	public void tranferir(int numeroConta, int numeroContaDestino, int valor)
+	public void tranferir(Conta contaLogada, int numeroContaDestino, int valor)
 			throws ContaNaoEncontradaExcep, SaldoInsuficienteExcep{
-		
-		Conta conta = this.buscarConta(numeroConta);
-		if (conta.getSaldo() < valor){
+
+		if (contaLogada.getSaldo() < valor){
 			throw new SaldoInsuficienteExcep("Saldo insuficiente");
 		}
 		else{
 			Conta contaDestino = this.buscarConta(numeroContaDestino);
-			conta.debitar(valor);
+			contaLogada.debitar(valor);
 			contaDestino.depositar(valor);
 		}
 	}
@@ -87,8 +84,7 @@ public class ControllerConta {
 			return 0;
 	}
 
-	public int consultarSaldo(int numeroConta) throws ContaNaoEncontradaExcep {
-		Conta conta = this.buscarConta(numeroConta);
+	public int consultarSaldo(Conta conta) throws ContaNaoEncontradaExcep {
 		return conta.getSaldo();
 	}
 

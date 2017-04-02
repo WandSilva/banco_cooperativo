@@ -13,8 +13,6 @@ public class InterfaceLinhaComando {
     public static void main(String args[]) {
         Facade facade = new Facade();
 
-        System.out.println("tam user: " + facade.getControllerUsuario().getListaUsuarios().size());
-        System.out.println("tam contas: " + facade.getControllerConta().getListaContas().size());
 
         System.out.println("SISTEMA BANCARIO" + "\n\n");
 
@@ -36,15 +34,21 @@ public class InterfaceLinhaComando {
                     System.out.println("Digite seu sobrenome");
                     String sobreNome = scan.next();
 
-                    System.out.println("Digite seu cpf");
-                    String cpf = scan.next();
+                    System.out.println("Digite seu cpf/cnpj");
+                    String cpfCnpj = scan.next();
 
-                    System.out.println("Tipo de usuário -" + "\n" + "[0] -> Pessoa juríca" +
-                            "\n" + "[1] -> Pessoa fisica");
-                    int tipo = scan.nextInt();
+                   int tipo =2;
+                    do {
+                        System.out.println("Tipo de usuário -" + "\n" + "[0] -> Pessoa juríca" +
+                                "\n" + "[1] -> Pessoa fisica");
+                        tipo = scan.nextInt();
+                    }while (tipo < 0 || tipo >1);
+                    System.out.println(primeiroNome + " " + sobreNome + " " + cpfCnpj + " " + tipo);
 
-                    System.out.println(primeiroNome +" " +sobreNome + " "+cpf +" "+ tipo);
-                    facade.criarUsuario(primeiroNome, sobreNome, cpf, tipo);
+                    if (tipo == 1)
+                        facade.criarPessoaFisica(primeiroNome, sobreNome, cpfCnpj);
+                    else if (tipo == 0)
+                        facade.criarPessoaFisica(primeiroNome, sobreNome, cpfCnpj);
 
                     do {
                         System.out.println("tipo de conta: [0] - corrente / [1] polpanca");
@@ -68,23 +72,23 @@ public class InterfaceLinhaComando {
                         numeroMsg = facade.criarContaPolpanca(senha);
                     }
 
-                 //   try {
-                  //      facade.addTitular(facade.buscarUsuario(cpf), numeroMsg);
-                   // } catch (UsuarioNaoEncontradoExcep usuarioNaoEncontradoExcep) {
-                    //    usuarioNaoEncontradoExcep.printStackTrace();
-                    //}
+                    try {
+                        facade.addTitular(facade.buscarUsuario(cpfCnpj), facade.getContaLogada());
+                    } catch (UsuarioNaoEncontradoExcep usuarioNaoEncontradoExcep) {
+                        usuarioNaoEncontradoExcep.printStackTrace();
+                    }
                     break;
 
 
                 case 2:
                     System.out.println("Informe seu CPF");
-                    cpf = scan.next();
+                    cpfCnpj = scan.next();
 
-                  //  try {
-                  //      facade.buscarUsuario(cpf);
-                 //   } catch (UsuarioNaoEncontradoExcep usuarioNaoEncontradoExcep) {
-                 //       usuarioNaoEncontradoExcep.printStackTrace();
-                 //   }
+                    try {
+                        facade.buscarUsuario(cpfCnpj);
+                    } catch (UsuarioNaoEncontradoExcep usuarioNaoEncontradoExcep) {
+                        usuarioNaoEncontradoExcep.printStackTrace();
+                    }
 
                     System.out.println("Informe o numero da conta");
                     int numeroLogin = scan.nextInt();
@@ -115,7 +119,7 @@ public class InterfaceLinhaComando {
                         switch (opcaoMenu2) {
                             case 1:
                                 try {
-                                    System.out.println("Saldo: " + facade.consultarSaldo(numeroLogin));
+                                    System.out.println("Saldo: " + facade.consultarSaldo(facade.getContaLogada()));
                                 } catch (ContaNaoEncontradaExcep contaNaoEncontradaExcep) {
                                     contaNaoEncontradaExcep.printStackTrace();
                                 }
@@ -124,7 +128,7 @@ public class InterfaceLinhaComando {
                                 System.out.println("digite o valor");
                                 int valor = scan.nextInt();
                                 try {
-                                    facade.depositar(numeroLogin, valor);
+                                    facade.depositar(facade.getContaLogada(), valor);
                                 } catch (ContaNaoEncontradaExcep contaNaoEncontradaExcep) {
                                     contaNaoEncontradaExcep.printStackTrace();
                                 }
@@ -136,7 +140,7 @@ public class InterfaceLinhaComando {
                                 System.out.println("Informe o valor");
                                 valor = scan.nextInt();
                                 try {
-                                    facade.tranferir(numeroLogin, numeroDestino, valor);
+                                    facade.tranferir(facade.getContaLogada(), numeroDestino, valor);
                                 } catch (ContaNaoEncontradaExcep contaNaoEncontradaExcep) {
                                     contaNaoEncontradaExcep.printStackTrace();
                                 } catch (SaldoInsuficienteExcep saldoInsuficienteExcep) {

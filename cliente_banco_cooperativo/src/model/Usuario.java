@@ -1,18 +1,16 @@
 package model;
 
-public class Usuario {
+public abstract class Usuario {
 
 	private String primeiroNome;
 	private String sobreNome;
-	private String cpf;
-	private int tipo; // 0 para pessoas física / 1 para pessoa jurídica.
+	private String registroUnico;
 	
 	
-	public Usuario(String primeiroNome, String sobreNome, String cpf, int tipo){
+	public Usuario(String primeiroNome, String sobreNome){
 		this.primeiroNome = primeiroNome;
 		this.sobreNome = sobreNome;
-		this.cpf = cpf;
-		this.tipo = tipo;
+
 	}
 	
 	public String getPrimeiroNome(){
@@ -21,9 +19,7 @@ public class Usuario {
 	public String getSobreNome(){
 		return this.sobreNome;
 	}
-	public String getCpf(){
-		return this.cpf;
-	}
+	public abstract String getRegistroUnico();
 	
 	
 }
