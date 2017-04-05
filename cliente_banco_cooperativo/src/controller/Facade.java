@@ -1,7 +1,9 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import comunicacao.Comunicacao;
 import exeption.ContaNaoEncontradaExcep;
 import exeption.SaldoInsuficienteExcep;
 import exeption.UsuarioNaoEncontradoExcep;
@@ -14,10 +16,12 @@ public class Facade {
 
 	private ControllerConta controllerConta;
 	private ControllerUsuario controllerUsuario;
+	private Comunicacao comunicacao;
 	
-	public Facade(){
-		this.controllerConta = new ControllerConta();
-		this.controllerUsuario = new ControllerUsuario();
+	public Facade() {
+		this.comunicacao = new Comunicacao();
+		this.controllerConta = new ControllerConta(comunicacao);
+		this.controllerUsuario = new ControllerUsuario(comunicacao);
 	}
 	
 	// ************************* METODOS DO ControllerConta ****************************//

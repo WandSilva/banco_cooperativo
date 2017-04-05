@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import comunicacao.Comunicacao;
 import exeption.ContaNaoEncontradaExcep;
 import exeption.SaldoInsuficienteExcep;
 import exeption.UsuarioNaoEncontradoExcep;
@@ -14,12 +15,14 @@ public class ControllerConta {
 	private ArrayList<Conta> listaContas;
 	private int numeroConta;
 	private Conta contaLogada;
+	private Comunicacao comunicacao;
 
-	public ControllerConta(){
+	public ControllerConta(Comunicacao comunicacao){
 		this.listaContas = new ArrayList<Conta>();
 		this.numeroConta = 100;
+		this.comunicacao = comunicacao;
 	}
-	//verificar se a conta já existe;
+
 	public int criarContaCorrente(String senha) {
 
 		int numero = numeroConta;
@@ -100,9 +103,5 @@ public class ControllerConta {
 
 	public void setContaLogada(Conta contaLogada) {
 		this.contaLogada = contaLogada;
-	}
-
-	public ArrayList<Conta> getListaContas() {
-		return listaContas;
 	}
 }

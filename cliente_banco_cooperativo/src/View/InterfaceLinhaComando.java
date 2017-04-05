@@ -15,7 +15,6 @@ public class InterfaceLinhaComando {
 
 
         System.out.println("SISTEMA BANCARIO" + "\n\n");
-
         Scanner scan = new Scanner(System.in);
         int opcaoMenuInicial = 0;
         int aux = 0;

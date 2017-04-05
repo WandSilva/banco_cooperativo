@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import comunicacao.Comunicacao;
 import exeption.UsuarioNaoEncontradoExcep;
 import model.PessoaFisica;
 import model.PessoaJuridica;
@@ -10,9 +11,11 @@ import model.Usuario;
 public class ControllerUsuario {
 
 	private ArrayList<Usuario> listaUsuarios;
+	Comunicacao comunicacao;
 
-	public ControllerUsuario(){
+	public ControllerUsuario(Comunicacao comunicacao) {
 		this.listaUsuarios = new ArrayList<Usuario>();
+		this.comunicacao = comunicacao;
 	}
 	
 	
