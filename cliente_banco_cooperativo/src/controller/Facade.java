@@ -1,16 +1,9 @@
 package controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
 import comunicacao.Comunicacao;
 import exeption.ContaNaoEncontradaExcep;
 import exeption.SaldoInsuficienteExcep;
-import exeption.UsuarioNaoEncontradoExcep;
-import model.Conta;
-import model.ContaCorrente;
-import model.ContaPolpanca;
-import model.Usuario;
 
 public class Facade {
 
@@ -26,31 +19,24 @@ public class Facade {
 	
 	// ************************* METODOS DO ControllerConta ****************************//
 	
-	public int criarContaCorrente(String senha) {
-		return this.controllerConta.criarContaCorrente(senha);
+	public String criarConta(String senha, String tipoConta, String cpfTitular) {
+		return this.controllerConta.criarConta(senha, tipoConta, cpfTitular);
 	}
 
-	public int criarContaPolpanca(String senha) {
-		return this.controllerConta.criarContaPolpanca(senha);
+
+	public void addTitular(String cpfUsuario, String numeroContaLogada) {
+		this.controllerConta.addTitular(cpfUsuario, numeroContaLogada);
 	}
 
-	public void addTitular(Usuario usuario, Conta contaLogada) throws UsuarioNaoEncontradoExcep {
-		this.controllerConta.addTitular(usuario, contaLogada);
-	}
-
-	public Conta getContaLogada(){
+	public String getContaLogada(){
 		return this.controllerConta.getContaLogada();
 	}
 
-	public Conta buscarConta(int numeroConta) throws ContaNaoEncontradaExcep {
-		return this.controllerConta.buscarConta(numeroConta);
+	public void depositar(String contaLogada, int valor) throws ContaNaoEncontradaExcep {
+		this.controllerConta.depositar(contaLogada, valor);
 	}
 
-	public void depositar(Conta conta, int valor) throws ContaNaoEncontradaExcep {
-		this.controllerConta.depositar(conta, valor);
-	}
-
-	public void tranferir(Conta contaLogada, int numeroContaDestino, int valor)
+	public void tranferir(String contaLogada, String numeroContaDestino, int valor)
 			throws ContaNaoEncontradaExcep, SaldoInsuficienteExcep{
 		
 		this.controllerConta.tranferir(contaLogada, numeroContaDestino, valor);
@@ -59,28 +45,13 @@ public class Facade {
 	public int logarConta(int numeroConta, String senha) throws ContaNaoEncontradaExcep {
 		return this.controllerConta.logarConta(numeroConta, senha);
 	}
-	public int consultarSaldo(Conta conta) throws ContaNaoEncontradaExcep {
-		return this.controllerConta.consultarSaldo(conta);
-	}
-
-	public void listarContas(){
-		this.controllerConta.listarContas();
+	public int consultarSaldo(String contaLogada) throws ContaNaoEncontradaExcep {
+		return this.controllerConta.consultarSaldo(contaLogada);
 	}
 	
 	//********************************* METODOS DO CONTROLLER USUARIO ******************************//
-	public void criarPessoaFisica(String primeiroNome, String sobreNome, String cpf){
-		this.controllerUsuario.criarPessoaFisica(primeiroNome, sobreNome, cpf);
-	}
+	public void criarUsuario(String cpf, String primeiroNome, String sobreNome, String tipo){
 
-	public void criarPessoaJuridica(String primeiroNome, String sobreNome, String cpf){
-		this.controllerUsuario.criarPessoaFisica(primeiroNome, sobreNome, cpf);
-	}
-	
-	public Usuario buscarUsuario(String cpf) throws UsuarioNaoEncontradoExcep{			
-		return this.controllerUsuario.buscarUsuario(cpf);
-	}
-
-	public void listarUsuarios(){
-		this.controllerUsuario.listarUsuarios();
+		this.controllerUsuario.criarUsuario(cpf, primeiroNome, sobreNome, tipo);
 	}
 }

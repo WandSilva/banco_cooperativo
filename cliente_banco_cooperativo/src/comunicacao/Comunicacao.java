@@ -1,14 +1,9 @@
 package comunicacao;
 
-import controller.Facade;
-import model.*;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Comunicacao {
 
@@ -16,12 +11,15 @@ public class Comunicacao {
     ObjectInputStream in;
     ObjectOutputStream out;
     String chave;
+    String pacoteTransmissao;
 
-    public Comunicacao(){
+    public Comunicacao() {
         startSocket();
+        chave = null;
+        pacoteTransmissao = null;
     }
 
-    public void startSocket(){
+    public void startSocket() {
         try {
             socket = new Socket("127.0.0.1", 7777);
         } catch (IOException e) {
@@ -29,37 +27,49 @@ public class Comunicacao {
         }
     }
 
-    public String carregarDadosUsuario(String cpf) {
-        chave = "carregarUsuario";
-        String dadosUsuario = null;
+    public String criarConta(String senha, String tipoConta, String cpfTitular) {
+        chave = "100";
+        pacoteTransmissao = chave + "_" + senha + "_" + tipoConta + "_" + cpfTitular + "\n";
+        String numeroContaCriada = null;
+
         try {
             out = new ObjectOutputStream(socket.getOutputStream());
-            out.writeObject(chave + "_" + cpf);
+            out.writeObject(pacoteTransmissao);
 
             in = new ObjectInputStream(socket.getInputStream());
-            dadosUsuario = (String) in.readObject();
+            numeroContaCriada = (String) in.readObject();
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return dadosUsuario;
+        return numeroContaCriada;
     }
 
-    public String carregarDadosContas(String numeroConta) {
-        chave = "carregarConta";
-        String dadosConta = null;
+    public void criarUsuario(String cpf, String primeiroNome, String sobreNome, String tipo) {
+        chave = "101";
+        pacoteTransmissao = chave + "_" + cpf + "_" + primeiroNome + "_" + sobreNome + "_" + tipo + "\n";
+
         try {
             out = new ObjectOutputStream(socket.getOutputStream());
-            out.writeObject(chave + "_" + numeroConta);
-
-            in = new ObjectInputStream(socket.getInputStream());
-            dadosConta = (String) in.readObject();
+            out.writeObject(pacoteTransmissao);
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        }
+
+    }
+
+    public void addTitular(String cpfUsuario, String numeroContaLogada) {
+        chave = "102";
+        pacoteTransmissao = chave + "_" + cpfUsuario + "_" + numeroContaLogada + "\n";
+
+        try {
+            out = new ObjectOutputStream(socket.getOutputStream());
+            out.writeObject(pacoteTransmissao);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return dadosConta;
     }
+
 }
