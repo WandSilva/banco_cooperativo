@@ -2,7 +2,6 @@ package controller;
 
 
 import comunicacao.Comunicacao;
-import exeption.ContaNaoEncontradaExcep;
 import exeption.SaldoInsuficienteExcep;
 
 public class Facade {
@@ -24,28 +23,31 @@ public class Facade {
 	}
 
 
-	public void addTitular(String cpfUsuario, String numeroContaLogada) {
-		this.controllerConta.addTitular(cpfUsuario, numeroContaLogada);
+	public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo) {
+		this.controllerConta.addTitular(numeroConta, registroUnico, primeiroNome, sobreNome, tipo);
 	}
 
 	public String getContaLogada(){
 		return this.controllerConta.getContaLogada();
 	}
 
-	public void depositar(String contaLogada, int valor) throws ContaNaoEncontradaExcep {
+	public void depositar(String contaLogada, String valor) {
 		this.controllerConta.depositar(contaLogada, valor);
 	}
 
-	public void tranferir(String contaLogada, String numeroContaDestino, int valor)
-			throws ContaNaoEncontradaExcep, SaldoInsuficienteExcep{
+	public void tranferir(String contaLogada, String numeroContaDestino, String valor) throws SaldoInsuficienteExcep {
 		
 		this.controllerConta.tranferir(contaLogada, numeroContaDestino, valor);
 	}
 
-	public int logarConta(int numeroConta, String senha) throws ContaNaoEncontradaExcep {
+	public int logarConta(String numeroConta, String senha)  {
 		return this.controllerConta.logarConta(numeroConta, senha);
 	}
-	public int consultarSaldo(String contaLogada) throws ContaNaoEncontradaExcep {
+	public void setContaLogada(String numeroConta){
+		this.controllerConta.setContaLogada(numeroConta);
+	}
+
+	public String consultarSaldo(String contaLogada) {
 		return this.controllerConta.consultarSaldo(contaLogada);
 	}
 	

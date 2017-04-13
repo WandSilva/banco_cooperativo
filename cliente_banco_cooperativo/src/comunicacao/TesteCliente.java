@@ -30,7 +30,7 @@ public class TesteCliente {
         ObjectInputStream in;
         ObjectOutputStream out;
         try {
-            socket = new Socket(InetAddress.getByName("127.0.0.1"),4321 ); //ip , porta
+            socket = new Socket(InetAddress.getByName("127.0.0.1"),7777 ); //ip , porta
 
 
             in= new ObjectInputStream(socket.getInputStream());

@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-
 import comunicacao.Comunicacao;
 
 public class ControllerUsuario {
@@ -16,5 +14,11 @@ public class ControllerUsuario {
 	public void criarUsuario(String cpf, String primeiroNome, String sobreNome, String tipo){
 		comunicacao.criarUsuario(cpf, primeiroNome, sobreNome, tipo);
 	}
+
+	//public void criarPessoaFisica(){}
+
+	//public void CriarPessoaJuridica(){}
+
+	//public void buscarUsuario(){}
 
 }

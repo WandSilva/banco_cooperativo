@@ -3,10 +3,8 @@ package controller;
 import java.util.ArrayList;
 
 import comunicacao.Comunicacao;
-import exeption.ContaNaoEncontradaExcep;
 import exeption.SaldoInsuficienteExcep;
-import exeption.UsuarioNaoEncontradoExcep;
-import model.*;
+
 
 public class ControllerConta {
 
@@ -22,22 +20,25 @@ public class ControllerConta {
 	}
 
 	public String criarConta(String senha, String tipoConta, String cpfTitular) {
-
+		System.out.println("entrei no controller criar conta");
 		String numeroConta = comunicacao.criarConta(senha, tipoConta, cpfTitular);
-		this.setContaLogada(numeroConta);
-		return null; //tem q retornar o numero da conta
+		return numeroConta;
 	}
 
-	public void addTitular(String cpfUsuario, String numeroContaLogada) {
-		comunicacao.addTitular(cpfUsuario, numeroContaLogada);
+	public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo) {
+		comunicacao.addTitular(numeroConta, registroUnico, primeiroNome, sobreNome, tipo);
 	}
 
-	public void depositar(String contaLogada, int valor) throws ContaNaoEncontradaExcep {
+	public void depositar(String contaLogada, String valor) {
+		comunicacao.depositar(contaLogada, valor);
 	}
 
-	public void tranferir(String contaLogada, String numeroContaDestino, int valor)
-			throws ContaNaoEncontradaExcep, SaldoInsuficienteExcep{
+	public void tranferir(String contaLogada, String numeroContaDestino, String valor) throws SaldoInsuficienteExcep {
+		String resposta = this.comunicacao.transferir(contaLogada, numeroContaDestino, valor);
 
+		if (resposta.equals("305")){
+			throw new SaldoInsuficienteExcep();
+		}
 	}
 
 	public void setContaLogada(String contaLogada) {
@@ -49,12 +50,16 @@ public class ControllerConta {
 		return contaLogada;
 	}
 
-	public int logarConta(int numero, String senha) throws ContaNaoEncontradaExcep {
-		return 0;
+	public int logarConta(String numero, String senha) {
+		String resopostaServidor = this.comunicacao.logarConta(numero, senha);
+		if (resopostaServidor.equals("203"))
+			return 1;
+		else
+			return 0;
 	}
 
-	public int consultarSaldo(String numeroConta) throws ContaNaoEncontradaExcep {
-		return 0;
+	public String consultarSaldo(String numeroConta) {
+		return this.comunicacao.verSaldo(numeroConta);
 	}
 
 
