@@ -1,5 +1,7 @@
 package data;
 
+import model.Usuario;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -8,33 +10,13 @@ import java.util.ArrayList;
  */
 public class GerenciaUsuarios implements Serializable{
 
-
-    ArrayList<String> listaUsuarios = new ArrayList<String>();
-
     public GerenciaUsuarios() {
-        this.listaUsuarios = new ArrayList<String>();
     }
 
-    public void addUsuario(String dadosUsuario) throws IOException {
-        listaUsuarios.add(dadosUsuario);
-    }
+    public void gravarDados(ArrayList<Usuario> listaUsuarios){
 
-    public String getUsuario(String cpf){
-        String dados, aux[];
-        for(int i=0; i<listaUsuarios.size(); i++){
-            dados = listaUsuarios.get(i);
-            aux = dados.split(" ");
-            if(cpf.equals(aux[0])){
-                return dados;
-            }
-
-        }
-        System.err.println("Usuario não encontrado");
-        return null;
-    }
-    public void gravarDados(){
         try {
-            FileOutputStream arquivoUsuarios = new FileOutputStream("arquivo_contas.data");
+            FileOutputStream arquivoUsuarios = new FileOutputStream("arquivo_usuarios.data");
             ObjectOutputStream objectOutput = new ObjectOutputStream(arquivoUsuarios);
             objectOutput.writeObject(listaUsuarios);
             objectOutput.close();
@@ -42,16 +24,18 @@ public class GerenciaUsuarios implements Serializable{
             e.printStackTrace();
         }
     }
-    public void carregarDados(){
+
+    public ArrayList<Usuario> carregarDados(){
+        ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
         try {
             FileInputStream arquivoUsuarios = new FileInputStream("arquivo_usuarios.data");
             ObjectInputStream objectInput =  new ObjectInputStream(arquivoUsuarios);
             listaUsuarios = (ArrayList) objectInput.readObject();
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return listaUsuarios;
     }
 }

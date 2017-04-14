@@ -1,5 +1,7 @@
 package data;
 
+import model.Conta;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -8,32 +10,12 @@ import java.util.ArrayList;
  */
 public class GerenciaContas implements Serializable {
 
-    ArrayList<String> listaContas = new ArrayList<String>();
 
-    public GerenciaContas() {
-        this.listaContas = new ArrayList<String>();
+    public GerenciaContas(){
     }
 
 
-    public void criarConta(String dadosConta) {
-        listaContas.add(dadosConta);
-    }
-
-    public String carregarConta(String numeroConta){
-        String dados, aux[];
-
-        for(int i=0; i<listaContas.size(); i++){
-            dados = listaContas.get(i);
-            aux = dados.split(" ");
-            if(numeroConta.equals(aux[0])){
-                return dados;
-            }
-
-        }
-        System.err.println("Conta não encontrada");
-        return null;
-    }
-    public void gravarDados(){
+    public void gravarDados(ArrayList<Conta> listaContas){
         try {
             FileOutputStream arquivoContas = new FileOutputStream("arquivo_contas.data");
             ObjectOutputStream objectOutput = new ObjectOutputStream(arquivoContas);
@@ -44,7 +26,8 @@ public class GerenciaContas implements Serializable {
         }
     }
 
-    public void carregarDados(){
+    public ArrayList<Conta> carregarDados(){
+        ArrayList<Conta> listaContas = new ArrayList<Conta>();
         try {
             FileInputStream arquivoConta = new FileInputStream("arquivo_contas.data");
             ObjectInputStream objectInput = new ObjectInputStream(arquivoConta);
@@ -55,5 +38,6 @@ public class GerenciaContas implements Serializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return listaContas;
     }
 }

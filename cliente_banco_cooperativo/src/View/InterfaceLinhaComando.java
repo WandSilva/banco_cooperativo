@@ -38,8 +38,6 @@ public class InterfaceLinhaComando {
                             "\n" + "[1] -> Pessoa fisica");
                     String tipo = scan.nextLine();
 
-                    System.out.println(primeiroNome + " " + sobreNome + " " + cpfCnpj + " " + tipo);
-
                     facade.criarUsuario(cpfCnpj, primeiroNome, sobreNome, tipo);
 
                     System.out.println("tipo de conta: [0] - corrente / [1] polpanca");
@@ -80,7 +78,8 @@ public class InterfaceLinhaComando {
                                     "1 - Consultar saldo" + "\n" +
                                     "2 - Depositar" + "\n" +
                                     "3 - Transferencia" + "\n" +
-                                    "4 - Sair");
+                                    "4 - Adcionar titular" +"\n"+
+                                    "5 - Sair");
                             opcaoMenu2 = scan.nextLine();
                             switch (opcaoMenu2) {
                                 case "1":
@@ -110,6 +109,23 @@ public class InterfaceLinhaComando {
 
                                     break;
                                 case "4":
+                                    System.out.println("Digite o primeiro nome");
+                                    primeiroNome = scan.nextLine();
+
+                                    System.out.println("Digite o sobrenome");
+                                    sobreNome = scan.nextLine();
+
+                                    System.out.println("Digite o cpf/cnpj");
+                                    cpfCnpj = scan.nextLine();
+
+                                    System.out.println("Tipo de usuário -" + "\n" + "[0] -> Pessoa juríca" +
+                                            "\n" + "[1] -> Pessoa fisica");
+                                    tipo = scan.nextLine();
+
+                                    facade.addTitular(facade.getContaLogada(), cpfCnpj, primeiroNome, sobreNome, tipo);
+                                    break;
+                                case "5":
+                                    facade.setContaLogada(null);
                                     loop2 = 1;
                                     break;
                             }
