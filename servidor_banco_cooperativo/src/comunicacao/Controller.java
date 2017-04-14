@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    private ArrayList<Conta> listaContas;
-    private ArrayList<Usuario> listaUsuarios;
+    private static ArrayList<Conta> listaContas;
+    private static ArrayList<Usuario> listaUsuarios;
     private GerenciaContas gerenciaContas;
     private GerenciaUsuarios gerenciaUsuarios;
 
@@ -35,6 +35,7 @@ public class Controller {
             Conta contaDestio = buscarConta(contadestino);
             contaOrigem.debitar(valorInt);
             contaDestio.depositar(valorInt);
+            salvarContas();
             return "205";
         }
     }
@@ -44,12 +45,13 @@ public class Controller {
 
         Conta conta = buscarConta(numeroConta);
         conta.depositar(valorInt);
+        salvarContas();
         return "204";
     }
 
     public String verSaldo(String numeroConta) {
         Conta conta = buscarConta(numeroConta);
-        return Integer.toString(conta.getSaldo());
+        return Double.toString(conta.getSaldo());
     }
 
     public String criarConta(String senha, String tipo, String cpfTitular) {
@@ -70,6 +72,7 @@ public class Controller {
             }
         }
         conta.addTitular(criarUsuario(registroUnico, primeiroNome, sobreNome, tipo));
+        salvarContas();
     }
 
     public Conta buscarConta(String numeroConta) {

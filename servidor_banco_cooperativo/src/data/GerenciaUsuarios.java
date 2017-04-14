@@ -8,12 +8,12 @@ import java.util.ArrayList;
 /**
  * Created by wanderson on 06/04/17.
  */
-public class GerenciaUsuarios implements Serializable{
+public class GerenciaUsuarios implements Serializable {
 
     public GerenciaUsuarios() {
     }
 
-    public void gravarDados(ArrayList<Usuario> listaUsuarios){
+    public void gravarDados(ArrayList<Usuario> listaUsuarios) {
 
         try {
             FileOutputStream arquivoUsuarios = new FileOutputStream("arquivo_usuarios.data");
@@ -25,12 +25,15 @@ public class GerenciaUsuarios implements Serializable{
         }
     }
 
-    public ArrayList<Usuario> carregarDados(){
+    public ArrayList<Usuario> carregarDados() {
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
         try {
-            FileInputStream arquivoUsuarios = new FileInputStream("arquivo_usuarios.data");
-            ObjectInputStream objectInput =  new ObjectInputStream(arquivoUsuarios);
-            listaUsuarios = (ArrayList) objectInput.readObject();
+            Boolean existe = new File("arquivo_usuarios.data").exists();
+            if (existe) {
+                FileInputStream arquivoUsuarios = new FileInputStream("arquivo_usuarios.data");
+                ObjectInputStream objectInput = new ObjectInputStream(arquivoUsuarios);
+                listaUsuarios = (ArrayList) objectInput.readObject();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

@@ -29,9 +29,12 @@ public class GerenciaContas implements Serializable {
     public ArrayList<Conta> carregarDados(){
         ArrayList<Conta> listaContas = new ArrayList<Conta>();
         try {
-            FileInputStream arquivoConta = new FileInputStream("arquivo_contas.data");
-            ObjectInputStream objectInput = new ObjectInputStream(arquivoConta);
-            listaContas = (ArrayList) objectInput.readObject();
+            Boolean existe = new File("arquivo_contas.data").exists();
+            if (existe) {
+                FileInputStream arquivoConta = new FileInputStream("arquivo_contas.data");
+                ObjectInputStream objectInput = new ObjectInputStream(arquivoConta);
+                listaContas = (ArrayList) objectInput.readObject();
+            }
             
         } catch (IOException e) {
             e.printStackTrace();

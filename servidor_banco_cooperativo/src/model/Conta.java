@@ -12,14 +12,14 @@ public class Conta implements Serializable{
     private String numero;
     private static int auxNumero = 1000;
     private String senha;
-    private int saldo;
+    private double saldo;
     private String tipo;
     private ArrayList<Usuario> titulares;
 
     public Conta(String senha, String tipo) {
         atualizarNumero();
         this.senha = senha;
-        this.saldo = 0;
+        this.saldo =0;
         this.tipo = tipo;
         this.titulares = new ArrayList<>();
     }
@@ -48,7 +48,7 @@ public class Conta implements Serializable{
         this.saldo -= valor;
     }
 
-    public int getSaldo() {
+    public double getSaldo() {
         return this.saldo;
     }
 
