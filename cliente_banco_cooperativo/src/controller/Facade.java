@@ -50,6 +50,10 @@ public class Facade {
 	public String consultarSaldo(String contaLogada) {
 		return this.controllerConta.consultarSaldo(contaLogada);
 	}
+
+	public void fecharConexao(){
+		this.controllerConta.fecharConexao();
+	}
 	
 	//********************************* METODOS DO CONTROLLER USUARIO ******************************//
 	public void criarUsuario(String cpf, String primeiroNome, String sobreNome, String tipo){

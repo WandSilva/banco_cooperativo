@@ -55,7 +55,7 @@ public class InterfaceLinhaComando {
 
                 case "2":
                     System.out.println("Informe seu CPF");
-                    String  cpfCnpjLogin = scan.nextLine();
+                    String cpfCnpjLogin = scan.nextLine();
 
                     System.out.println("Informe o numero da conta");
                     String numeroLogin = scan.nextLine();
@@ -78,7 +78,7 @@ public class InterfaceLinhaComando {
                                     "1 - Consultar saldo" + "\n" +
                                     "2 - Depositar" + "\n" +
                                     "3 - Transferencia" + "\n" +
-                                    "4 - Adcionar titular" +"\n"+
+                                    "4 - Adcionar titular" + "\n" +
                                     "5 - Sair");
                             opcaoMenu2 = scan.nextLine();
                             switch (opcaoMenu2) {
@@ -131,6 +131,10 @@ public class InterfaceLinhaComando {
                             }
                         }
                     }
+                    break;
+                case "3":
+                    facade.fecharConexao();
+                    System.exit(0);
                     break;
             }
 

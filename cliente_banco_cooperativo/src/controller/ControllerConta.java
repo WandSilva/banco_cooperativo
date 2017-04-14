@@ -63,4 +63,7 @@ public class ControllerConta {
 	}
 
 
+	public void fecharConexao() {
+		this.comunicacao.fecharConexao();
+	}
 }

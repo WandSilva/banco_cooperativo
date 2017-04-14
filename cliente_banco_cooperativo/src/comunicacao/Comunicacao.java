@@ -21,7 +21,7 @@ public class Comunicacao {
 
     public void startSocket() {
         try {
-            socket = new Socket("127.0.0.1", 7777);
+            socket = new Socket("192.168.15.4", 7777);
             this.out = new ObjectOutputStream(socket.getOutputStream());
             this.in = new ObjectInputStream(socket.getInputStream());
 
@@ -140,4 +140,11 @@ public class Comunicacao {
 
     }
 
+    public void fecharConexao() {
+        try {
+            this.socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
