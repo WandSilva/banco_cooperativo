@@ -3,6 +3,7 @@ package View;
 import java.util.Scanner;
 
 import controller.Facade;
+import exeption.ContaNaoEncontradaExcep;
 import exeption.SaldoInsuficienteExcep;
 
 public class InterfaceLinhaComando {
@@ -102,9 +103,11 @@ public class InterfaceLinhaComando {
                                     valor = scan.nextLine();
 
                                     try {
-                                        facade.tranferir(facade.getContaLogada(), numeroDestino, valor);
+                                        facade.transferir(facade.getContaLogada(), numeroDestino, valor);
                                     } catch (SaldoInsuficienteExcep saldoInsuficienteExcep) {
                                         System.err.println("Saldo insuficiente");
+                                    } catch (ContaNaoEncontradaExcep contaNaoEncontradaExcep) {
+                                        System.err.println("Conta de destino não encontrada");
                                     }
 
                                     break;

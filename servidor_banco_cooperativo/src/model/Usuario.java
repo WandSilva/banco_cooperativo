@@ -6,7 +6,7 @@ public class Usuario implements Serializable{
 
     private String primeiroNome;
     private String sobreNome;
-    private String tipo;
+    private String tipo; //[1] - fisico / [0] - juridico
     private String registroUnico;
 
 

@@ -29,12 +29,15 @@ public class Controller {
         int valorInt = Integer.parseInt(valor);
 
         Conta contaOrigem = buscarConta(contaorigem);
+
         if (contaOrigem.getSaldo() < valorInt) {
             return "305";
         } else {
-            Conta contaDestio = buscarConta(contadestino);
+            Conta contaDestino = buscarConta(contadestino);
+            if (contaDestino==null)
+                return "3051";
             contaOrigem.debitar(valorInt);
-            contaDestio.depositar(valorInt);
+            contaDestino.depositar(valorInt);
             salvarContas();
             return "205";
         }

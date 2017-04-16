@@ -2,6 +2,7 @@ package controller;
 
 
 import comunicacao.Comunicacao;
+import exeption.ContaNaoEncontradaExcep;
 import exeption.SaldoInsuficienteExcep;
 
 public class Facade {
@@ -35,7 +36,7 @@ public class Facade {
 		this.controllerConta.depositar(contaLogada, valor);
 	}
 
-	public void tranferir(String contaLogada, String numeroContaDestino, String valor) throws SaldoInsuficienteExcep {
+	public void transferir(String contaLogada, String numeroContaDestino, String valor) throws SaldoInsuficienteExcep, ContaNaoEncontradaExcep {
 		
 		this.controllerConta.tranferir(contaLogada, numeroContaDestino, valor);
 	}

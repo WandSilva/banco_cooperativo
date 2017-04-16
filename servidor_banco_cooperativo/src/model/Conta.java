@@ -13,7 +13,7 @@ public class Conta implements Serializable{
     private static int auxNumero = 1000;
     private String senha;
     private double saldo;
-    private String tipo;
+    private String tipo; //[1] - polpanca / [0] - corrent
     private ArrayList<Usuario> titulares;
 
     public Conta(String senha, String tipo) {

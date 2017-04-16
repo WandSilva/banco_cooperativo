@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import comunicacao.Comunicacao;
+import exeption.ContaNaoEncontradaExcep;
 import exeption.SaldoInsuficienteExcep;
 
 
@@ -33,11 +34,14 @@ public class ControllerConta {
 		comunicacao.depositar(contaLogada, valor);
 	}
 
-	public void tranferir(String contaLogada, String numeroContaDestino, String valor) throws SaldoInsuficienteExcep {
+	public void tranferir(String contaLogada, String numeroContaDestino, String valor) throws SaldoInsuficienteExcep, ContaNaoEncontradaExcep {
 		String resposta = this.comunicacao.transferir(contaLogada, numeroContaDestino, valor);
 
 		if (resposta.equals("305")){
 			throw new SaldoInsuficienteExcep();
+		}
+		if (resposta.equals("3051")){
+			throw new ContaNaoEncontradaExcep();
 		}
 	}
 
