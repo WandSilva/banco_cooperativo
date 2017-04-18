@@ -7,7 +7,10 @@ import exeption.ContaNaoEncontradaExcep;
 import exeption.SaldoInsuficienteExcep;
 import util.Criptografia5dm;
 
-
+/**
+ * Classe responsável por gerenciar todas as funcionalidas pertencentes a uma conta e
+ * enviar para a classe responsável pela comunicação.
+ */
 public class ControllerConta {
 
 
@@ -20,6 +23,14 @@ public class ControllerConta {
         this.comunicacao = comunicacao;
     }
 
+    /**
+     * Recebe as informações sobre a conta, criptografa a senha e envia as informações para
+     * a classe responsável para o comunicação com o servidor.
+     * @param senha
+     * @param tipoConta
+     * @param cpfTitular
+     * @return
+     */
     public String criarConta(String senha, String tipoConta, String cpfTitular) {
         String senhaCriptografada = null;
         try {
@@ -31,6 +42,16 @@ public class ControllerConta {
         return numeroConta;
     }
 
+    /**
+     * Recebe as informações sobre o novo titular, criptografa a senha e envia as informações para
+     * a classe responsável para o comunicação com o servidor.
+     * @param numeroConta
+     * @param registroUnico
+     * @param primeiroNome
+     * @param sobreNome
+     * @param tipo
+     * @param senha
+     */
     public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo, String senha) {
         String senhaCriptografada = null;
         try {
@@ -41,10 +62,22 @@ public class ControllerConta {
         comunicacao.addTitular(numeroConta, registroUnico, primeiroNome, sobreNome, tipo, senhaCriptografada);
     }
 
+    /**
+     * @param contaLogada
+     * @param valor
+     */
     public void depositar(String contaLogada, String valor) {
         comunicacao.depositar(contaLogada, valor);
     }
 
+    /**
+     *
+     * @param contaLogada
+     * @param numeroContaDestino
+     * @param valor
+     * @throws SaldoInsuficienteExcep
+     * @throws ContaNaoEncontradaExcep
+     */
     public void tranferir(String contaLogada, String numeroContaDestino, String valor) throws SaldoInsuficienteExcep, ContaNaoEncontradaExcep {
         String resposta = this.comunicacao.transferir(contaLogada, numeroContaDestino, valor);
 
@@ -56,15 +89,30 @@ public class ControllerConta {
         }
     }
 
+    /**
+     * Método utulizado para a aplicação sempre saber qual a conta que está logada
+     * @param contaLogada
+     */
     public void setContaLogada(String contaLogada) {
         this.contaLogada = contaLogada;
     }
 
+    /**
+     *
+     * @return número da conta logada
+     */
     public String getContaLogada() {
 
         return contaLogada;
     }
 
+    /**
+     * Recebe a informações de login, codifica a senha e manda para a classe
+     * reponsável pela comunicação com o servidor
+     * @param numero
+     * @param senha
+     * @return
+     */
     public String[] logarConta(String numero, String senha) {
         String senhaCriptografada = null;
         try {
@@ -86,11 +134,18 @@ public class ControllerConta {
         }
     }
 
+    /**
+     *
+     * @param numeroConta
+     * @return
+     */
     public String consultarSaldo(String numeroConta) {
         return this.comunicacao.verSaldo(numeroConta);
     }
 
-
+    /**
+     * fecha a conexão com o servidor
+     */
     public void fecharConexao() {
         this.comunicacao.fecharConexao();
     }

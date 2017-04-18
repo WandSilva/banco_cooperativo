@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 /**
  * Created by wanderson on 14/04/17.
+ *
+ * Main da aplicação. Classe responsável por iniciar a interface gráfica.
  */
 public class View extends Application{
 

@@ -5,6 +5,9 @@ import comunicacao.Comunicacao;
 import exeption.ContaNaoEncontradaExcep;
 import exeption.SaldoInsuficienteExcep;
 
+/**
+ * Classe responsável por fazer a comunicação entre a intercafe gráfica e os controllers.
+ */
 public class Facade {
 
 	private ControllerConta controllerConta;
