@@ -1,5 +1,7 @@
 package comunicacao;
 
+import util.RevertCriptografia5dm;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -50,7 +52,8 @@ public class TrataCliente extends Thread {
                     String resposta = null;
                     switch (partesMensagem[0]) {
                         case "100":
-                            String numeroConta = controller.criarConta(partesMensagem[1],
+                            String senha = new RevertCriptografia5dm().revertCriptografia5dm(partesMensagem[1]);
+                            String numeroConta = controller.criarConta(senha,
                                     partesMensagem[2], partesMensagem[3]);
                             out.writeObject(numeroConta);
 
@@ -61,12 +64,14 @@ public class TrataCliente extends Thread {
 
                             break;
                         case "102":
+                            senha = new RevertCriptografia5dm().revertCriptografia5dm(partesMensagem[6]);
                             controller.addTitular(partesMensagem[1], partesMensagem[2], partesMensagem[3],
-                                    partesMensagem[4], partesMensagem[5], partesMensagem[6]);
+                                    partesMensagem[4], partesMensagem[5], senha);
 
                             break;
                         case "103":
-                            String resposta103 = controller.logarConta(partesMensagem[1], partesMensagem[2]);
+                            senha = new RevertCriptografia5dm().revertCriptografia5dm(partesMensagem[2]);
+                            String resposta103 = controller.logarConta(partesMensagem[1], senha);
                             out.writeObject(resposta103);
 
                             break;

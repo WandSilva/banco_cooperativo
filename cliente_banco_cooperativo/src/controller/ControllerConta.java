@@ -1,11 +1,11 @@
 package controller;
 
-import java.util.ArrayList;
+import java.security.NoSuchAlgorithmException;
 
 import comunicacao.Comunicacao;
 import exeption.ContaNaoEncontradaExcep;
-import exeption.NumeroMaxUsuariosExep;
 import exeption.SaldoInsuficienteExcep;
+import util.Criptografia5dm;
 
 
 public class ControllerConta {
@@ -21,12 +21,24 @@ public class ControllerConta {
     }
 
     public String criarConta(String senha, String tipoConta, String cpfTitular) {
-        String numeroConta = comunicacao.criarConta(senha, tipoConta, cpfTitular);
+        String senhaCriptografada = null;
+        try {
+            senhaCriptografada = new Criptografia5dm().criptografia5dm(senha);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        String numeroConta = comunicacao.criarConta(senhaCriptografada, tipoConta, cpfTitular);
         return numeroConta;
     }
 
     public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo, String senha) {
-        comunicacao.addTitular(numeroConta, registroUnico, primeiroNome, sobreNome, tipo, senha);
+        String senhaCriptografada = null;
+        try {
+            senhaCriptografada = new Criptografia5dm().criptografia5dm(senha);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        comunicacao.addTitular(numeroConta, registroUnico, primeiroNome, sobreNome, tipo, senhaCriptografada);
     }
 
     public void depositar(String contaLogada, String valor) {
@@ -54,7 +66,14 @@ public class ControllerConta {
     }
 
     public String[] logarConta(String numero, String senha) {
-        String resopostaServidor[] = this.comunicacao.logarConta(numero, senha).split("_");
+        String senhaCriptografada = null;
+        try {
+            senhaCriptografada = new Criptografia5dm().criptografia5dm(senha);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        String resopostaServidor[] = this.comunicacao.logarConta(numero, senhaCriptografada).split("_");
         String codeLogin[] = new String[2];
 
         if (resopostaServidor[0].equals("203")) {
