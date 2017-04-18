@@ -51,10 +51,8 @@ public class Comunicacao {
 
         try {
             out.writeObject(pacoteTransmissao);
-            System.out.println("mandei os dados:" + pacoteTransmissao);
 
             resposta = (String) in.readObject();
-            System.out.println("recebi a resposta: " + resposta);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +90,7 @@ public class Comunicacao {
      * @param tipo
      * @param senha
      */
-    public void addTitular(String numeroContaLogada, String registroUnico, String primeiroNome,
+    public String addTitular(String numeroContaLogada, String registroUnico, String primeiroNome,
                            String sobreNome, String tipo, String senha) {
         chave = "102";
         pacoteTransmissao = chave + "_" + numeroContaLogada + "_" + registroUnico + "_" + primeiroNome +
@@ -100,9 +98,15 @@ public class Comunicacao {
 
         try {
             out.writeObject(pacoteTransmissao);
+
+            resposta = (String) in.readObject();
+
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        return resposta;
     }
 
     /**
@@ -120,7 +124,6 @@ public class Comunicacao {
         try {
 
             out.writeObject(pacoteTransmissao);
-
 
             resposta = (String) in.readObject();
         } catch (IOException e) {

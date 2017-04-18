@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Conta implements Serializable{
 
 
-    private String numero;
+    private int numero;
     private static int auxNumero = 1000;
     private ArrayList<String> senhas;
     private double saldo;
@@ -25,7 +25,7 @@ public class Conta implements Serializable{
         this.titulares = new ArrayList<>();
     }
 
-    public String getNumero(){
+    public int getNumero(){
         return this.numero;
     }
 
@@ -57,8 +57,12 @@ public class Conta implements Serializable{
     }
 
     public void atualizarNumero(){
-        this.numero = Integer.toString(auxNumero);
+        this.numero = auxNumero;
         auxNumero++;
+    }
+    public void retomarContagemNumero(int numero){
+        this.auxNumero = numero;
+        atualizarNumero();
     }
 
 

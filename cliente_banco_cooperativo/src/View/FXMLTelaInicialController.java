@@ -3,6 +3,7 @@ package View;
 
 import controller.Facade;
 import exeption.ContaNaoEncontradaExcep;
+import exeption.NumeroMaxUsuariosExep;
 import exeption.SaldoInsuficienteExcep;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -267,8 +268,14 @@ public class FXMLTelaInicialController implements Initializable {
         else
             tipo = "0";
 
-        facade.addTitular(facade.getContaLogada(), registroAddUsuario.getText(), nomeAddUsuario.getText(),
-                sobreNomeAddUsuario.getText(), tipo, senhaUsuario.getText());
+        try {
+            facade.addTitular(facade.getContaLogada(), registroAddUsuario.getText(), nomeAddUsuario.getText(),
+                    sobreNomeAddUsuario.getText(), tipo, senhaUsuario.getText());
+            JOptionPane.showMessageDialog(null, "Novo titular adicionado", "Novo titular adicionado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NumeroMaxUsuariosExep numeroMaxUsuariosExep) {
+            JOptionPane.showMessageDialog(null, "Você já excedeu o número máximo de titulares(Máximo: 3 titulares)", "Número máximo de titulares excedido", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
     @FXML
@@ -325,5 +332,9 @@ public class FXMLTelaInicialController implements Initializable {
 
     public void fecharTelAaddTitular() {
         telaAddTitular.setVisible(false);
+        sobreNomeAddUsuario.setText("");
+        nomeAddUsuario.setText("");
+        registroAddUsuario.setText("");
+        senhaUsuario.setText("");
     }
 }

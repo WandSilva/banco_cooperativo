@@ -14,7 +14,10 @@ public class GerenciaContas implements Serializable {
     public GerenciaContas(){
     }
 
-
+    /**
+     * Pega os dados do cliente armazenados em uma lista e grava em um arquivo.
+     * @param listaContas
+     */
     public void gravarDados(ArrayList<Conta> listaContas){
         try {
             FileOutputStream arquivoContas = new FileOutputStream("arquivo_contas.data");
@@ -26,6 +29,10 @@ public class GerenciaContas implements Serializable {
         }
     }
 
+    /**
+     * carrega os dados do arquivo de contas em uma lista encadeada.
+     * @return
+     */
     public ArrayList<Conta> carregarDados(){
         ArrayList<Conta> listaContas = new ArrayList<Conta>();
         try {

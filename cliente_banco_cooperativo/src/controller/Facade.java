@@ -3,6 +3,7 @@ package controller;
 
 import comunicacao.Comunicacao;
 import exeption.ContaNaoEncontradaExcep;
+import exeption.NumeroMaxUsuariosExep;
 import exeption.SaldoInsuficienteExcep;
 
 /**
@@ -27,7 +28,7 @@ public class Facade {
 	}
 
 
-	public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo, String senha) {
+	public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo, String senha) throws NumeroMaxUsuariosExep {
 		this.controllerConta.addTitular(numeroConta, registroUnico, primeiroNome, sobreNome, tipo, senha);
 	}
 

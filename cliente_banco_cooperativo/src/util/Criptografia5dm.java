@@ -22,10 +22,8 @@ public class Criptografia5dm {
         BigInteger hash = new BigInteger(1, md.digest(password.getBytes()));
 
         String aux = String.format("%32x", hash);
-        System.out.println(aux);
         StringBuffer sb = new StringBuffer(aux);
         String senha5dm = sb.reverse().toString();
-        System.out.println(senha5dm);
         return senha5dm;
     }
 }

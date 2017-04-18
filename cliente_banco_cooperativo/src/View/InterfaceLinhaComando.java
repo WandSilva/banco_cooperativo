@@ -4,12 +4,13 @@ import java.util.Scanner;
 
 import controller.Facade;
 import exeption.ContaNaoEncontradaExcep;
+import exeption.NumeroMaxUsuariosExep;
 import exeption.SaldoInsuficienteExcep;
 
 public class InterfaceLinhaComando {
 
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws NumeroMaxUsuariosExep {
         Facade facade = new Facade();
 
 

@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 import comunicacao.Comunicacao;
 import exeption.ContaNaoEncontradaExcep;
+import exeption.NumeroMaxUsuariosExep;
 import exeption.SaldoInsuficienteExcep;
 import util.Criptografia5dm;
 
@@ -26,6 +27,7 @@ public class ControllerConta {
     /**
      * Recebe as informações sobre a conta, criptografa a senha e envia as informações para
      * a classe responsável para o comunicação com o servidor.
+     *
      * @param senha
      * @param tipoConta
      * @param cpfTitular
@@ -45,6 +47,7 @@ public class ControllerConta {
     /**
      * Recebe as informações sobre o novo titular, criptografa a senha e envia as informações para
      * a classe responsável para o comunicação com o servidor.
+     *
      * @param numeroConta
      * @param registroUnico
      * @param primeiroNome
@@ -52,14 +55,18 @@ public class ControllerConta {
      * @param tipo
      * @param senha
      */
-    public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo, String senha) {
+    public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo, String senha) throws NumeroMaxUsuariosExep {
         String senhaCriptografada = null;
         try {
             senhaCriptografada = new Criptografia5dm().criptografia5dm(senha);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        comunicacao.addTitular(numeroConta, registroUnico, primeiroNome, sobreNome, tipo, senhaCriptografada);
+        String resposta = comunicacao.addTitular(numeroConta, registroUnico, primeiroNome, sobreNome, tipo, senhaCriptografada);
+
+        if (resposta.equals("302")) {
+            throw new NumeroMaxUsuariosExep();
+        }
     }
 
     /**
@@ -71,7 +78,6 @@ public class ControllerConta {
     }
 
     /**
-     *
      * @param contaLogada
      * @param numeroContaDestino
      * @param valor
@@ -91,6 +97,7 @@ public class ControllerConta {
 
     /**
      * Método utulizado para a aplicação sempre saber qual a conta que está logada
+     *
      * @param contaLogada
      */
     public void setContaLogada(String contaLogada) {
@@ -98,7 +105,6 @@ public class ControllerConta {
     }
 
     /**
-     *
      * @return número da conta logada
      */
     public String getContaLogada() {
@@ -109,6 +115,7 @@ public class ControllerConta {
     /**
      * Recebe a informações de login, codifica a senha e manda para a classe
      * reponsável pela comunicação com o servidor
+     *
      * @param numero
      * @param senha
      * @return
@@ -135,7 +142,6 @@ public class ControllerConta {
     }
 
     /**
-     *
      * @param numeroConta
      * @return
      */

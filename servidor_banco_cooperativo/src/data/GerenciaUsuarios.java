@@ -13,6 +13,10 @@ public class GerenciaUsuarios implements Serializable {
     public GerenciaUsuarios() {
     }
 
+    /**
+     * recebe a lista de usuários e salva os dados em um arquivo.
+     * @param listaUsuarios
+     */
     public void gravarDados(ArrayList<Usuario> listaUsuarios) {
 
         try {
@@ -25,6 +29,10 @@ public class GerenciaUsuarios implements Serializable {
         }
     }
 
+    /**
+     * carrega os dados do arquivo de usuário em uma lista encadeada.
+     * @return
+     */
     public ArrayList<Usuario> carregarDados() {
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
         try {

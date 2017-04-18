@@ -10,6 +10,10 @@ public class ServidorBanco implements Runnable {
 
     ServerSocket servidor;
 
+    /**
+     * inicia o servidor
+     * @throws IOException
+     */
     public ServidorBanco() throws IOException {
         System.out.println("Iniciando o servidor...");
         this.servidor = new ServerSocket(7777);
@@ -17,6 +21,9 @@ public class ServidorBanco implements Runnable {
         new Thread(this).start();
     }
 
+    /**
+     * método responsável por aceita a conexão com o cliente e iniciar uma nova thread.
+     */
     @Override
     public void run() {
         try {
