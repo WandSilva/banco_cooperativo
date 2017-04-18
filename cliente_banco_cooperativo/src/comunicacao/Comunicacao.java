@@ -21,7 +21,7 @@ public class Comunicacao {
 
     public void startSocket() {
         try {
-            socket = new Socket("192.168.15.10", 7777);
+            socket = new Socket("127.0.0.1", 7777);
             this.out = new ObjectOutputStream(socket.getOutputStream());
             this.in = new ObjectInputStream(socket.getInputStream());
 
@@ -62,10 +62,10 @@ public class Comunicacao {
         }
     }
 
-    public void addTitular(String numeroContaLogada, String registroUnico, String primeiroNome, String sobreNome, String tipo) {
+    public void addTitular(String numeroContaLogada, String registroUnico, String primeiroNome, String sobreNome, String tipo, String senha) {
         chave = "102";
         pacoteTransmissao = chave + "_" + numeroContaLogada + "_" + registroUnico + "_" + primeiroNome +
-                "_" + sobreNome + "_" + tipo;
+                "_" + sobreNome + "_" + tipo +"_" +senha;
 
         try {
             out.writeObject(pacoteTransmissao);

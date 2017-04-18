@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -50,7 +52,22 @@
                   <TextField fx:id="valorTextDepositar" layoutX="19.0" layoutY="103.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="telaAddTitular" layoutX="113.0" layoutY="86.0" prefHeight="254.0" prefWidth="299.0" visible="false" />
+            <AnchorPane fx:id="telaAddTitular" layoutX="113.0" layoutY="86.0" prefHeight="254.0" prefWidth="299.0">
+               <children>
+                  <TextField fx:id="nomeAddUsuario" layoutX="12.0" layoutY="63.0" />
+                  <TextField fx:id="sobreNomeAddUsuario" layoutX="12.0" layoutY="117.0" />
+                  <TextField fx:id="registroAddUsuario" layoutX="12.0" layoutY="167.0" />
+                  <TextField fx:id="senhaUsuario" layoutX="12.0" layoutY="219.0" />
+                  <Label layoutX="12.0" layoutY="43.0" text="Nome" />
+                  <Label layoutX="12.0" layoutY="95.0" text="Sobrenome" />
+                  <Label fx:id="labelRegistroAddUsuario" layoutX="13.0" layoutY="147.0" text="CPF" />
+                  <Label layoutX="12.0" layoutY="199.0" text="Senha" />
+                  <Button layoutX="213.0" layoutY="210.0" mnemonicParsing="false" onAction="#addTitular" text="Adicionar" />
+                  <Label layoutX="12.0" layoutY="17.0" text="Tipo do usuario:" />
+                  <RadioButton fx:id="radioAddUsuario1" layoutX="130.0" layoutY="16.0" mnemonicParsing="false" onAction="#radioButtonAddUserEvent" text="Fisico" />
+                  <RadioButton fx:id="radioAddUsuario2" layoutX="200.0" layoutY="16.0" mnemonicParsing="false" onAction="#radioButtonAddUserEvent" text="Juridico" />
+               </children></AnchorPane>
+            <Label fx:id="clienteConectado" layoutX="168.0" layoutY="15.0" />
          </children>
       </AnchorPane>
       <AnchorPane id="telaLogin" fx:id="telaLogin" layoutX="53.0" layoutY="51.0" prefHeight="247.0" prefWidth="305.0" visible="false">
@@ -72,16 +89,16 @@
                   <TextField fx:id="registroUnicoTextCadastro" layoutX="18.0" layoutY="170.0" />
                   <Label layoutX="18.0" layoutY="48.0" text="Nome" />
                   <Label layoutX="18.0" layoutY="100.0" text="Sobrenome" />
-                  <Label layoutX="18.0" layoutY="152.0" text="Registro unico (CPF / CNPJ)" />
+                  <Label fx:id="labelRegistroCadastro" layoutX="18.0" layoutY="152.0" text="CPF" />
                   <Label layoutX="16.0" layoutY="202.0" text="Senha" />
-                  <RadioButton fx:id="radioUsuario2Cadastro" layoutX="299.0" layoutY="80.0" mnemonicParsing="false" onAction="#radioButtonEvent" text="Juridico" />
-                  <RadioButton fx:id="radioUsuarioCadastro" layoutX="214.0" layoutY="80.0" mnemonicParsing="false" onAction="#radioButtonEvent" text="Fisico" />
-                  <RadioButton fx:id="radioConta2Cadastro" layoutX="304.0" layoutY="168.0" mnemonicParsing="false" onAction="#radioButtonEvent" text="Corrente" />
-                  <RadioButton fx:id="radioContaCadastro" layoutX="212.0" layoutY="166.0" mnemonicParsing="false" onAction="#radioButtonEvent" text="Polpança" />
+                  <RadioButton fx:id="radioU2Cadastro" layoutX="299.0" layoutY="80.0" mnemonicParsing="false" onAction="#radioUserCadastro" text="Juridico" />
+                  <RadioButton fx:id="radioC2Cadastro" layoutX="304.0" layoutY="168.0" mnemonicParsing="false" onAction="#radioContaCadastro" text="Corrente" />
+                  <RadioButton fx:id="radioC1Cadastro" layoutX="212.0" layoutY="166.0" mnemonicParsing="false" onAction="#radioContaCadastro" selected="true" text="Polpança" />
                   <Label fx:id="tipoUsuarioLabel" layoutX="217.0" layoutY="48.0" text="Tipo do Usuario:" />
                   <Label fx:id="tipoContaLabel" layoutX="211.0" layoutY="135.0" text="Tipo da conta:" />
                   <Button fx:id="botaoCadastrar" layoutX="313.0" layoutY="284.0" mnemonicParsing="false" onAction="#cadastrar" text="Cadastrar" />
                   <Button fx:id="botaoCancelarCadastro" layoutX="219.0" layoutY="285.0" mnemonicParsing="false" onAction="#fecharTelaCadastro" text="Cancelar" />
+                  <RadioButton fx:id="radioU1Cadastro" layoutX="206.0" layoutY="80.0" mnemonicParsing="false" onAction="#radioUserCadastro" selected="true" text="Fisico" />
                </children>
             </AnchorPane>
         </content>

@@ -11,14 +11,15 @@ public class Conta implements Serializable{
 
     private String numero;
     private static int auxNumero = 1000;
-    private String senha;
+    private ArrayList<String> senhas;
     private double saldo;
     private String tipo; //[1] - polpanca / [0] - corrent
     private ArrayList<Usuario> titulares;
 
     public Conta(String senha, String tipo) {
         atualizarNumero();
-        this.senha = senha;
+        this.senhas=new ArrayList<>();
+        this.senhas.add(senha);
         this.saldo =0;
         this.tipo = tipo;
         this.titulares = new ArrayList<>();
@@ -28,8 +29,8 @@ public class Conta implements Serializable{
         return this.numero;
     }
 
-    public String getSenha(){
-        return this.senha;
+    public String getSenha(int index){
+        return this.senhas.get(index);
     }
 
     public ArrayList<Usuario> getListaTitulares(){
@@ -38,6 +39,9 @@ public class Conta implements Serializable{
 
     public void addTitular(Usuario usuario) {
         this.titulares.add(usuario);
+    }
+    public void addSenha(String senha){
+        this.senhas.add(senha);
     }
 
     public void depositar(int valor) {

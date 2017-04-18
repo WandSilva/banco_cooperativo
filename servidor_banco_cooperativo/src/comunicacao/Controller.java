@@ -34,7 +34,7 @@ public class Controller {
             return "305";
         } else {
             Conta contaDestino = buscarConta(contadestino);
-            if (contaDestino==null)
+            if (contaDestino == null)
                 return "3051";
             contaOrigem.debitar(valorInt);
             contaDestino.depositar(valorInt);
@@ -65,17 +65,28 @@ public class Controller {
         return conta.getNumero();
     }
 
-    public void addTitular(String numeroConta, String registroUnico, String primeiroNome,
-                             String sobreNome, String tipo) {
+    public String addTitular(String numeroConta, String registroUnico, String primeiroNome,
+                             String sobreNome, String tipo, String senha) {
         Conta conta = buscarConta(numeroConta);
+
+        int numeroDeTitulares = conta.getListaTitulares().size();
+
+        if (numeroDeTitulares >= 3) {
+            System.err.println("TEU TITULAR DMS");
+            return "302";
+        }
 
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getRegistroUnico().equals(registroUnico)) {
                 conta.addTitular(usuario);
+                conta.addSenha(senha);
+                return "202";
             }
         }
         conta.addTitular(criarUsuario(registroUnico, primeiroNome, sobreNome, tipo));
+        conta.addSenha(senha);
         salvarContas();
+        return "202";
     }
 
     public Conta buscarConta(String numeroConta) {
@@ -89,12 +100,18 @@ public class Controller {
     }
 
     public String logarConta(String numeroConta, String senha) {
+
+
         Conta conta = buscarConta(numeroConta);
         if (conta != null) {
-            if (senha.equals(conta.getSenha())) {
-                return "203";
-            } else return "303";
-        } else return "303";
+
+            for (int i = 0; i < conta.getListaTitulares().size(); i++) {
+                if (senha.equals(conta.getSenha(i))) {
+                    return "203"+"_"+conta.getListaTitulares().get(i).getPrimeiroNome();
+                }
+            }
+        }
+        return "303";
     }
 
     public Usuario criarUsuario(String registroUnico, String primeiroNome, String sobreNome, String tipo) {

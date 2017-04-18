@@ -53,22 +53,22 @@ public class TrataCliente extends Thread {
                             String numeroConta = controller.criarConta(partesMensagem[1],
                                     partesMensagem[2], partesMensagem[3]);
                             out.writeObject(numeroConta);
-                            TimeUnit.SECONDS.sleep(1);
+
                             break;
                         case "101":
                             controller.criarUsuario(partesMensagem[1], partesMensagem[2],
                                     partesMensagem[3], partesMensagem[4]);
-                            TimeUnit.SECONDS.sleep(1);
+
                             break;
                         case "102":
                             controller.addTitular(partesMensagem[1], partesMensagem[2], partesMensagem[3],
-                                    partesMensagem[4], partesMensagem[5]);
+                                    partesMensagem[4], partesMensagem[5], partesMensagem[6]);
 
                             break;
                         case "103":
                             String resposta103 = controller.logarConta(partesMensagem[1], partesMensagem[2]);
                             out.writeObject(resposta103);
-                            TimeUnit.SECONDS.sleep(1);
+
                             break;
                         case "104":
                             controller.depositar(partesMensagem[1], partesMensagem[2]);
@@ -82,15 +82,17 @@ public class TrataCliente extends Thread {
                             out.writeObject(resposta106);
                             break;
                     }
-                } catch (IOException | ClassNotFoundException e){
+                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
-                } catch (InterruptedException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             }
         }
     }
-    public String getIpUsuario(){
+
+    public String getIpUsuario() {
         String ip = socket.getInetAddress().getHostAddress();
         return ip;
     }

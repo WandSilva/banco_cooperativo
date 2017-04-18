@@ -24,8 +24,8 @@ public class Facade {
 	}
 
 
-	public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo) {
-		this.controllerConta.addTitular(numeroConta, registroUnico, primeiroNome, sobreNome, tipo);
+	public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo, String senha) {
+		this.controllerConta.addTitular(numeroConta, registroUnico, primeiroNome, sobreNome, tipo, senha);
 	}
 
 	public String getContaLogada(){
@@ -41,7 +41,7 @@ public class Facade {
 		this.controllerConta.tranferir(contaLogada, numeroContaDestino, valor);
 	}
 
-	public int logarConta(String numeroConta, String senha)  {
+	public String[] logarConta(String numeroConta, String senha)  {
 		return this.controllerConta.logarConta(numeroConta, senha);
 	}
 	public void setContaLogada(String numeroConta){

@@ -63,12 +63,12 @@ public class InterfaceLinhaComando {
                     System.out.println("Informe a senha da conta");
                     String senhaLogin = scan.nextLine();
 
-                    int validador = 0;
+                    String validador[];
 
                     validador = facade.logarConta(numeroLogin, senhaLogin);
 
 
-                    if (validador == 0) {
+                    if (validador[0] == "0") {
                         System.out.println("login/senha invalido(s)");
                     } else {
                         facade.setContaLogada(numeroLogin);
@@ -125,7 +125,7 @@ public class InterfaceLinhaComando {
                                             "\n" + "[1] -> Pessoa fisica");
                                     tipo = scan.nextLine();
 
-                                    facade.addTitular(facade.getContaLogada(), cpfCnpj, primeiroNome, sobreNome, tipo);
+                                    facade.addTitular(facade.getContaLogada(), cpfCnpj, primeiroNome, sobreNome, tipo, null);
                                     break;
                                 case "5":
                                     facade.setContaLogada(null);
