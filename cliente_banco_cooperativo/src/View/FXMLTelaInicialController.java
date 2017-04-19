@@ -9,9 +9,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 import javax.swing.*;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,6 +28,11 @@ import java.util.ResourceBundle;
 public class FXMLTelaInicialController implements Initializable {
 
     Facade facade = new Facade();
+    File file = new File("logo_banco.png");
+    Image image = new Image(file.toURI().toString());
+
+    @FXML
+    ImageView visualizadorImagem;
 
     //---------------------- TELA LOGIN -------------------//
     @FXML
@@ -82,6 +90,10 @@ public class FXMLTelaInicialController implements Initializable {
     @FXML
     private Label clienteConectado;
     @FXML
+    private Label numeroContaConectada;
+    @FXML
+    private Label tipoContaConectada;
+    @FXML
     private Label labelRegistroAddUsuario;
     @FXML
     private AnchorPane telaDepositar;
@@ -105,6 +117,7 @@ public class FXMLTelaInicialController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        visualizadorImagem.setImage(image);
         telaLogin.setVisible(true);
 
         telaCadastro.setVisible(false);
@@ -125,44 +138,6 @@ public class FXMLTelaInicialController implements Initializable {
     }
 
     @FXML
-    public void logarConta(ActionEvent event) {
-        if (!textContaLogin.getText().equals("") && !textSenhaLogin.equals("")) {
-            String validador[] = facade.logarConta(textContaLogin.getText(), textSenhaLogin.getText());
-            if (validador[0] == "1") {
-                telaLogin.setVisible(false);
-                telaCadastro.setVisible(false);
-                telaInicial.setVisible(true);
-                textSenhaLogin.setText("");
-                facade.setContaLogada(textContaLogin.getText());
-                clienteConectado.setText("Olá, " + validador[1]);
-            } else {
-                JOptionPane.showMessageDialog(null, "Número da conta ou senha inválido(s).", "Número da conta ou senha inválido(s).", JOptionPane.WARNING_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Você deve informar o número da conta e a senha.", "Informações insuficientes!", JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
-    @FXML
-    public void irTelaCadastro() {
-        telaCadastro.setVisible(true);
-        telaCadastro.setExpanded(true);
-        telaCadastro.setCollapsible(false);
-        telaLogin.setVisible(false);
-    }
-
-    @FXML
-    public void fecharTelaCadastro(ActionEvent event) {
-        telaLogin.setVisible(true);
-        telaCadastro.setExpanded(false);
-        telaCadastro.setCollapsible(false);
-        telaCadastro.setVisible(false);
-        senhaTextCadastro.setText("");
-        registroUnicoTextCadastro.setText("");
-        sobreNomeTextCadastro.setText("");
-        nomeTextCadastro.setText("");
-    }
-
     public void cadastrar(ActionEvent event) {
 
         if (!nomeTextCadastro.getText().equals("") && !sobreNomeTextCadastro.getText().equals("") &&
@@ -188,32 +163,49 @@ public class FXMLTelaInicialController implements Initializable {
     }
 
     @FXML
-    public void radioUserCadastro(ActionEvent event) {
-        RadioButton radioButton = (RadioButton) event.getSource();
-        String radioButtonName = radioButton.getText();
+    public void logarConta(ActionEvent event) {
+        if (!textContaLogin.getText().equals("") && !textSenhaLogin.equals("")) {
+            String validador[] = facade.logarConta(textContaLogin.getText(), textSenhaLogin.getText());
 
-        if (radioButtonName.equals(radioU1Cadastro.getText())) {
-            radioU2Cadastro.setSelected(false);
-            labelRegistroCadastro.setText("CPF");
-        } else if (radioButtonName.equals(radioU2Cadastro.getText())) {
-            radioU1Cadastro.setSelected(false);
-            labelRegistroCadastro.setText("CNPJ");
+            if (validador[0] == "1") {
+                telaLogin.setVisible(false);
+                telaCadastro.setVisible(false);
+                telaInicial.setVisible(true);
+                textSenhaLogin.setText("");
+                facade.setContaLogada(textContaLogin.getText());
+                clienteConectado.setText("Olá, " + validador[1]);
+                numeroContaConectada.setText("Conta: "+textContaLogin.getText());
+                if (validador[2].equals("1"))
+                    tipoContaConectada.setText("Tipo: Polpança");
+                else
+                    tipoContaConectada.setText("Tipo: Corrente");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Número da conta ou senha inválido(s).", "Número da conta ou senha inválido(s).", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Você deve informar o número da conta e a senha.", "Informações insuficientes!", JOptionPane.WARNING_MESSAGE);
         }
     }
-
     @FXML
-    public void radioContaCadastro(ActionEvent event) {
-        RadioButton radioButton = (RadioButton) event.getSource();
-        String radioButtonName = radioButton.getText();
+    public void addTitular(ActionEvent event) {
+        String tipo;
+        if (radioAddUsuario1.isSelected())
+            tipo = "1";
+        else
+            tipo = "0";
 
-        if (radioButtonName.equals(radioC1Cadastro.getText())) {
-            radioC2Cadastro.setSelected(false);
-        } else if (radioButtonName.equals(radioC2Cadastro.getText())) {
-            radioC1Cadastro.setSelected(false);
+        try {
+            facade.addTitular(facade.getContaLogada(), registroAddUsuario.getText(), nomeAddUsuario.getText(),
+                    sobreNomeAddUsuario.getText(), tipo, senhaUsuario.getText());
+            JOptionPane.showMessageDialog(null, "Novo titular adicionado", "Novo titular adicionado", JOptionPane.INFORMATION_MESSAGE);
+            fecharTelAaddTitular();
+        } catch (NumeroMaxUsuariosExep numeroMaxUsuariosExep) {
+            JOptionPane.showMessageDialog(null, "Você já excedeu o número máximo de titulares(Máximo: 3 titulares)", "Número máximo de titulares excedido", JOptionPane.WARNING_MESSAGE);
+            fecharTelAaddTitular();
         }
+
     }
-
-
     @FXML
     public void verSaldo(ActionEvent event) {
         fecharTelaTransferir();
@@ -247,6 +239,64 @@ public class FXMLTelaInicialController implements Initializable {
     }
 
     @FXML
+    public void logout() {
+        facade.setContaLogada(null);
+        telaInicial.setVisible(false);
+        fecharTelaTransferir();
+        fecharTelaDepositar();
+        fecharTelaSaldo();
+        fecharTelAaddTitular();
+        telaLogin.setVisible(true);
+        clienteConectado.setText("");
+    }
+
+    @FXML
+    public void irTelaCadastro() {
+        telaCadastro.setVisible(true);
+        telaCadastro.setExpanded(true);
+        telaCadastro.setCollapsible(false);
+        telaLogin.setVisible(false);
+    }
+
+    @FXML
+    public void fecharTelaCadastro(ActionEvent event) {
+        telaLogin.setVisible(true);
+        telaCadastro.setExpanded(false);
+        telaCadastro.setCollapsible(false);
+        telaCadastro.setVisible(false);
+        senhaTextCadastro.setText("");
+        registroUnicoTextCadastro.setText("");
+        sobreNomeTextCadastro.setText("");
+        nomeTextCadastro.setText("");
+    }
+
+    @FXML
+    public void radioUserCadastro(ActionEvent event) {
+        RadioButton radioButton = (RadioButton) event.getSource();
+        String radioButtonName = radioButton.getText();
+
+        if (radioButtonName.equals(radioU1Cadastro.getText())) {
+            radioU2Cadastro.setSelected(false);
+            labelRegistroCadastro.setText("CPF");
+        } else if (radioButtonName.equals(radioU2Cadastro.getText())) {
+            radioU1Cadastro.setSelected(false);
+            labelRegistroCadastro.setText("CNPJ");
+        }
+    }
+
+    @FXML
+    public void radioContaCadastro(ActionEvent event) {
+        RadioButton radioButton = (RadioButton) event.getSource();
+        String radioButtonName = radioButton.getText();
+
+        if (radioButtonName.equals(radioC1Cadastro.getText())) {
+            radioC2Cadastro.setSelected(false);
+        } else if (radioButtonName.equals(radioC2Cadastro.getText())) {
+            radioC1Cadastro.setSelected(false);
+        }
+    }
+
+    @FXML
     public void radioButtonAddUserEvent(ActionEvent event) {
         RadioButton radioButton = (RadioButton) event.getSource();
         String radioButtonName = radioButton.getText();
@@ -258,36 +308,6 @@ public class FXMLTelaInicialController implements Initializable {
             radioAddUsuario1.setSelected(false);
             labelRegistroAddUsuario.setText("CNPJ");
         }
-    }
-
-    @FXML
-    public void addTitular(ActionEvent event) {
-        String tipo;
-        if (radioAddUsuario1.isSelected())
-            tipo = "1";
-        else
-            tipo = "0";
-
-        try {
-            facade.addTitular(facade.getContaLogada(), registroAddUsuario.getText(), nomeAddUsuario.getText(),
-                    sobreNomeAddUsuario.getText(), tipo, senhaUsuario.getText());
-            JOptionPane.showMessageDialog(null, "Novo titular adicionado", "Novo titular adicionado", JOptionPane.INFORMATION_MESSAGE);
-        } catch (NumeroMaxUsuariosExep numeroMaxUsuariosExep) {
-            JOptionPane.showMessageDialog(null, "Você já excedeu o número máximo de titulares(Máximo: 3 titulares)", "Número máximo de titulares excedido", JOptionPane.WARNING_MESSAGE);
-        }
-
-    }
-
-    @FXML
-    public void logout() {
-        facade.setContaLogada(null);
-        telaInicial.setVisible(false);
-        fecharTelaTransferir();
-        fecharTelaDepositar();
-        fecharTelaSaldo();
-        fecharTelAaddTitular();
-        telaLogin.setVisible(true);
-        clienteConectado.setText("");
     }
 
     @FXML

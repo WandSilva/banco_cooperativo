@@ -164,7 +164,8 @@ public class Controller {
 
             for (int i = 0; i < conta.getListaTitulares().size(); i++) {
                 if (senha.equals(conta.getSenha(i))) {
-                    return "203" + "_" + conta.getListaTitulares().get(i).getPrimeiroNome();
+                    return "203" + "_" + conta.getListaTitulares().get(i).getPrimeiroNome()+
+                            "_"+conta.getTipo();
                 }
             }
         }

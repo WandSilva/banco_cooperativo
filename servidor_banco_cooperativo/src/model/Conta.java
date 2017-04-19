@@ -16,6 +16,10 @@ public class Conta implements Serializable{
     private String tipo; //[1] - polpanca / [0] - corrent
     private ArrayList<Usuario> titulares;
 
+    public String getTipo() {
+        return tipo;
+    }
+
     public Conta(String senha, String tipo) {
         atualizarNumero();
         this.senhas=new ArrayList<>();

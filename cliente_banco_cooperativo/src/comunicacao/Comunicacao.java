@@ -45,7 +45,6 @@ public class Comunicacao {
      * @return numero da conta criada
      */
     public String criarConta(String senha, String tipoConta, String cpfTitular) {
-        System.out.println("entrei na comunicação p/ criar conta");
         chave = "100";
         pacoteTransmissao = chave + "_" + senha + "_" + tipoConta + "_" + cpfTitular;
 

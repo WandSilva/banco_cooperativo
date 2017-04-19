@@ -128,12 +128,13 @@ public class ControllerConta {
             e.printStackTrace();
         }
 
-        String resopostaServidor[] = this.comunicacao.logarConta(numero, senhaCriptografada).split("_");
-        String codeLogin[] = new String[2];
+        String respostaServidor[] = this.comunicacao.logarConta(numero, senhaCriptografada).split("_");
+        String codeLogin[] = new String[3];
 
-        if (resopostaServidor[0].equals("203")) {
+        if (respostaServidor[0].equals("203")) {
             codeLogin[0] = "1";
-            codeLogin[1] = resopostaServidor[1];
+            codeLogin[1] = respostaServidor[1];
+            codeLogin[2] = respostaServidor[2];
             return codeLogin;
         } else {
             codeLogin[0] = "0";

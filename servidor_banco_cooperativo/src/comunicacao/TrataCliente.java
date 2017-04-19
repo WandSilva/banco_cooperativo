@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class TrataCliente extends Thread {
     private Socket socket;
 
-    public TrataCliente(Socket s) {
+    public TrataCliente(Socket s) throws SocketException {
         socket = s;
     }
 
