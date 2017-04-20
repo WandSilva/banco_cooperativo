@@ -20,8 +20,8 @@ import java.util.ResourceBundle;
 
 /**
  * Created by wanderson on 14/04/17.
- * Classe responsável por gerenciar os eventos e atributos da interface gráfica
- * criada usando JavaFx SceneBuilder.
+ * Classe responsável por gerenciar os eventos e atributos da
+ * interface gráfica criada usando JavaFx SceneBuilder.
  */
 
 

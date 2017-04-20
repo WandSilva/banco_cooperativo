@@ -36,6 +36,7 @@ public class ControllerConta {
     public String criarConta(String senha, String tipoConta, String cpfTitular) {
         String senhaCriptografada = null;
         try {
+            //criptografando a senha
             senhaCriptografada = new Criptografia5dm().criptografia5dm(senha);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -58,6 +59,7 @@ public class ControllerConta {
     public void addTitular(String numeroConta, String registroUnico, String primeiroNome, String sobreNome, String tipo, String senha) throws NumeroMaxUsuariosExep {
         String senhaCriptografada = null;
         try {
+            //criptografando a senha
             senhaCriptografada = new Criptografia5dm().criptografia5dm(senha);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
