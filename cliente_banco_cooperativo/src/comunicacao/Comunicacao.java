@@ -1,5 +1,6 @@
 package comunicacao;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 
@@ -54,7 +55,7 @@ public class Comunicacao {
             resposta = (String) in.readObject();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Há algum problema com o servidor, feche a aplicação e tente novamente mais tarde.", "Erro de conexão", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -76,7 +77,7 @@ public class Comunicacao {
 
             out.writeObject(pacoteTransmissao);
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Há algum problema com o servidor, feche a aplicação e tente novamente mais tarde.", "Erro de conexão", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -101,7 +102,7 @@ public class Comunicacao {
             resposta = (String) in.readObject();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Há algum problema com o servidor, feche a aplicação e tente novamente mais tarde.", "Erro de conexão", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -126,7 +127,7 @@ public class Comunicacao {
 
             resposta = (String) in.readObject();
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Há algum problema com o servidor, feche a aplicação e tente novamente mais tarde.", "Erro de conexão", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -146,7 +147,7 @@ public class Comunicacao {
         try {
             out.writeObject(pacoteTransmissao);
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Há algum problema com o servidor, feche a aplicação e tente novamente mais tarde.", "Erro de conexão", JOptionPane.WARNING_MESSAGE);
         }
 
     }
@@ -166,7 +167,7 @@ public class Comunicacao {
 
             resposta = (String) in.readObject();
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Há algum problema com o servidor, feche a aplicação e tente novamente mais tarde.", "Erro de conexão", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -188,7 +189,7 @@ public class Comunicacao {
 
             resposta = (String) in.readObject();
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Há algum problema com o servidor, feche a aplicação e tente novamente mais tarde.", "Erro de conexão", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

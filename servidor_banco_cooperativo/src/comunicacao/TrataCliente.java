@@ -51,6 +51,8 @@ public class TrataCliente extends Thread {
                         mensagemCliente = (String) in.readObject();
                     } catch (IOException e) {
                         socket.close();
+                        System.out.println("O cliente "+getIpUsuario()+" foi desconectado");
+                        break;
                     }
 
                     partesMensagem = mensagemCliente.split("_");

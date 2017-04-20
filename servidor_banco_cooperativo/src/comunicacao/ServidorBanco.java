@@ -22,7 +22,7 @@ public class ServidorBanco implements Runnable {
     }
 
     /**
-     * método responsável por aceita a conexão com o cliente e iniciar uma nova thread.
+     * método responsável por aceitar a conexão com o cliente e iniciar uma nova thread.
      */
     @Override
     public void run() {
