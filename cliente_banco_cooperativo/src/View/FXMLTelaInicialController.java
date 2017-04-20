@@ -34,7 +34,7 @@ public class FXMLTelaInicialController implements Initializable {
     @FXML
     ImageView visualizadorImagem;
 
-    //---------------------- TELA LOGIN -------------------//
+    //---------------------- COMPONENTES DA TELA DE LOGIN -------------------//
     @FXML
     private AnchorPane telaLogin;
     @FXML
@@ -46,7 +46,7 @@ public class FXMLTelaInicialController implements Initializable {
     @FXML
     private Hyperlink labelCadastrese;
 
-    //------------------TELA CADASTRO---------------------//
+    //------------------ COMPONENTES DA TELA DE CADASTRO---------------------//
 
     @FXML
     private TitledPane telaCadastro;
@@ -84,7 +84,7 @@ public class FXMLTelaInicialController implements Initializable {
     @FXML
     private Label labelRegistroCadastro;
 
-    // ------------ TELA INICIAL --------------\\
+    // ------------ COMPONENTES DA TELA INICIAL --------------\\
     @FXML
     private AnchorPane telaInicial;
     @FXML
@@ -114,7 +114,11 @@ public class FXMLTelaInicialController implements Initializable {
     @FXML
     private TextField contaTextTransferir;
 
-
+    /**
+     * Inicializador do javafx.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         visualizadorImagem.setImage(image);
@@ -137,6 +141,10 @@ public class FXMLTelaInicialController implements Initializable {
 
     }
 
+    /**
+     * evento do botão Cadastrar
+     * @param event
+     */
     @FXML
     public void cadastrar(ActionEvent event) {
 
@@ -162,6 +170,10 @@ public class FXMLTelaInicialController implements Initializable {
         }
     }
 
+    /**
+     * evento do botão login
+     * @param event
+     */
     @FXML
     public void logarConta(ActionEvent event) {
         if (!textContaLogin.getText().equals("") && !textSenhaLogin.equals("")) {
@@ -187,6 +199,11 @@ public class FXMLTelaInicialController implements Initializable {
             JOptionPane.showMessageDialog(null, "Você deve informar o número da conta e a senha.", "Informações insuficientes!", JOptionPane.WARNING_MESSAGE);
         }
     }
+
+    /**
+     * evento do botão adicionar titular
+     * @param event
+     */
     @FXML
     public void addTitular(ActionEvent event) {
         String tipo;
@@ -206,6 +223,11 @@ public class FXMLTelaInicialController implements Initializable {
         }
 
     }
+
+    /**
+     * evento do botão Meu Saldo
+     * @param event
+     */
     @FXML
     public void verSaldo(ActionEvent event) {
         fecharTelaTransferir();
@@ -216,6 +238,10 @@ public class FXMLTelaInicialController implements Initializable {
         labelSaldo.setText("Saldo: R$" + saldo);
     }
 
+    /**
+     * evento do botão depositar
+     * @param event
+     */
     @FXML
     public void depositar(ActionEvent event) {
         if (!valorTextDepositar.getText().equals("")) {
@@ -225,6 +251,10 @@ public class FXMLTelaInicialController implements Initializable {
             JOptionPane.showMessageDialog(null, "Insira um valor para efetuar o depósito", "Insira um valor!", JOptionPane.WARNING_MESSAGE);
     }
 
+    /**
+     * evento do botão transferir
+     * @param event
+     */
     @FXML
     public void transferir(ActionEvent event) {
         try {
@@ -238,6 +268,9 @@ public class FXMLTelaInicialController implements Initializable {
         }
     }
 
+    /**
+     * evento do botão Logout
+     */
     @FXML
     public void logout() {
         facade.setContaLogada(null);
@@ -249,27 +282,10 @@ public class FXMLTelaInicialController implements Initializable {
         telaLogin.setVisible(true);
         clienteConectado.setText("");
     }
-
-    @FXML
-    public void irTelaCadastro() {
-        telaCadastro.setVisible(true);
-        telaCadastro.setExpanded(true);
-        telaCadastro.setCollapsible(false);
-        telaLogin.setVisible(false);
-    }
-
-    @FXML
-    public void fecharTelaCadastro(ActionEvent event) {
-        telaLogin.setVisible(true);
-        telaCadastro.setExpanded(false);
-        telaCadastro.setCollapsible(false);
-        telaCadastro.setVisible(false);
-        senhaTextCadastro.setText("");
-        registroUnicoTextCadastro.setText("");
-        sobreNomeTextCadastro.setText("");
-        nomeTextCadastro.setText("");
-    }
-
+    /**
+     * evento do radiobutton
+     * @param event
+     */
     @FXML
     public void radioUserCadastro(ActionEvent event) {
         RadioButton radioButton = (RadioButton) event.getSource();
@@ -283,7 +299,10 @@ public class FXMLTelaInicialController implements Initializable {
             labelRegistroCadastro.setText("CNPJ");
         }
     }
-
+    /**
+     * evento do radiobutton
+     * @param event
+     */
     @FXML
     public void radioContaCadastro(ActionEvent event) {
         RadioButton radioButton = (RadioButton) event.getSource();
@@ -295,7 +314,10 @@ public class FXMLTelaInicialController implements Initializable {
             radioC1Cadastro.setSelected(false);
         }
     }
-
+    /**
+     * evento do radiobutton
+     * @param event
+     */
     @FXML
     public void radioButtonAddUserEvent(ActionEvent event) {
         RadioButton radioButton = (RadioButton) event.getSource();
@@ -309,6 +331,33 @@ public class FXMLTelaInicialController implements Initializable {
             labelRegistroAddUsuario.setText("CNPJ");
         }
     }
+    /**
+     * deixa apenas a tela de cadastro visível
+     */
+    @FXML
+    public void irTelaCadastro() {
+        telaCadastro.setVisible(true);
+        telaCadastro.setExpanded(true);
+        telaCadastro.setCollapsible(false);
+        telaLogin.setVisible(false);
+    }
+
+    /**
+     * fecha a tela de cadastro e limpa seus componentes
+     * @param event
+     */
+    @FXML
+    public void fecharTelaCadastro(ActionEvent event) {
+        telaLogin.setVisible(true);
+        telaCadastro.setExpanded(false);
+        telaCadastro.setCollapsible(false);
+        telaCadastro.setVisible(false);
+        senhaTextCadastro.setText("");
+        registroUnicoTextCadastro.setText("");
+        sobreNomeTextCadastro.setText("");
+        nomeTextCadastro.setText("");
+    }
+
 
     @FXML
     public void abrirTelaDepositar() {

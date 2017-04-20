@@ -12,9 +12,10 @@ public class Comunicacao {
     Socket socket;
     ObjectInputStream in;
     ObjectOutputStream out;
-    String chave;
+    String chave; //código q será usado para identificar as requisições
     String resposta;
     String pacoteTransmissao;
+    static String ip;
 
     public Comunicacao() {
         startSocket();
@@ -29,7 +30,7 @@ public class Comunicacao {
      */
     public void startSocket() {
         try {
-            socket = new Socket("127.0.0.1", 7777);
+            socket = new Socket(ip, 7777);
             this.out = new ObjectOutputStream(socket.getOutputStream());
             this.in = new ObjectInputStream(socket.getInputStream());
 
@@ -110,7 +111,8 @@ public class Comunicacao {
     }
 
     /**
-     * Manda para o servidor a requusição para validar as informações inseridas e fazer login
+     * Manda para o servidor a requisição para validar as informações inseridas e fazer login
+     * e recebe como resposta o nome do titular e o tipo da conta.
      * @param numeroConta
      * @param senha
      * @return
@@ -175,7 +177,7 @@ public class Comunicacao {
     }
 
     /**
-     * Manda para o servidor a requisição para fazer uma tranaferência entre duas contas
+     * Manda para o servidor a requisição para fazer uma transferência entre duas contas
      * @param contaorigem
      * @param contadestino
      * @param valor
@@ -206,5 +208,9 @@ public class Comunicacao {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setIp(String ip) {
+        Comunicacao.ip = ip;
     }
 }

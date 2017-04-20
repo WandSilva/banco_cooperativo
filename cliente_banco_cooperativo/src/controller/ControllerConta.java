@@ -124,23 +124,29 @@ public class ControllerConta {
      */
     public String[] logarConta(String numero, String senha) {
         String senhaCriptografada = null;
+
+       //criptografando a senha
         try {
             senhaCriptografada = new Criptografia5dm().criptografia5dm(senha);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
+        //recebe o número do código da operação, o nome do titular e o tipo da conta.
         String respostaServidor[] = this.comunicacao.logarConta(numero, senhaCriptografada).split("_");
-        String codeLogin[] = new String[3];
 
+        String informacoesDeLogin[] = new String[3];
+
+        //"203" indica resposta positiva do servidor. O usuário conseguiu logar.
         if (respostaServidor[0].equals("203")) {
-            codeLogin[0] = "1";
-            codeLogin[1] = respostaServidor[1];
-            codeLogin[2] = respostaServidor[2];
-            return codeLogin;
+            informacoesDeLogin[0] = "1";
+            informacoesDeLogin[1] = respostaServidor[1];
+            informacoesDeLogin[2] = respostaServidor[2];
+
+            return informacoesDeLogin;
         } else {
-            codeLogin[0] = "0";
-            return codeLogin;
+
+            informacoesDeLogin[0] = "0";
+            return informacoesDeLogin;
         }
     }
 
